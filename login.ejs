@@ -1,0 +1,73 @@
+
+<head>
+    <link rel="stylesheet" type="text/css" href="owl.css">
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="owl">
+        <div class="hand"></div>
+        <div class="hand hand-r"></div>
+        <div class="arms">
+          <div class="arm"></div>
+          <div class="arm arm-r"></div>
+        </div>
+    </div>
+    
+<form role="form" action="" id="login_form" method="post">
+
+        <div class="form">
+            <div class="control">
+                <label for="email" class="fa fa-envelope"></label>   
+                <input id="username" placeholder="ID" name="username" type="text" autofocus="" ></input>
+            </div>
+            <div class="control">
+                <label for="password" class="fa fa-asterisk"></label>
+                <input id="password" placeholder="Password" name="password" type="password" value="" ></input>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-lg btn-success btn-block" value="로그인"></input>
+            </div>
+            <div style="margin-top: 10px">
+                <a href="#" > 
+                <i class="fa fa-id-card" aria-hidden="true"></i> 회원가입
+                    
+                </a>
+            </div>
+        </div>
+</form>  
+</body>
+<script>    
+
+//부엉이 눈가리기
+$('input[type="password"]').on('focus', () => {
+    $('*').addClass('password');
+    }).on('focusout', () => {
+        $('*').removeClass('password');
+});;
+
+(function(){
+    $(document).ready(function() {
+        $('#login_form').submit(function(){
+            var $usernameInput = $('#login_form input[name=username]');
+            var $passwordInput = $('#login_form input[name=password]');
+
+            if(!$usernameInput.val()){
+                alert("아이디를 입력해주세요.");
+                $usernameInput.focus();
+                return false;
+            }
+            if(!$passwordInput.val()){
+                alert("패스워드를 입력해주세요.");
+                $passwordInput.focus();
+                return false;
+            }
+
+            return true;
+        });
+    });
+})();
+</script>
