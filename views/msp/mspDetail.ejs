@@ -1,0 +1,41 @@
+<% include ../header.ejs %>
+    
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div style="padding-bottom: 10px">
+                자료명 : <%=msp.title%>
+            </div>
+            
+            <div style="padding-bottom: 10px">
+                작성자 : <%=msp.writer%>
+            </div> 
+
+            <div style="padding-bottom: 10px">
+                파일 : 
+            <% if(msp.record){%>
+                <a href="/hitts/msp_uploads/<%=msp.record%>" /> <%=msp.record%> </a>
+                
+            </div>
+            <% } %>
+
+            <div style="padding-bottom: 10px">
+                설명 <%-msp.description%>
+            </div>
+
+            <div style="padding-bottom: 10px">
+                작성일 : <%=msp.getDate.year%> -
+                        <%=msp.getDate.month%> -
+                        <%=msp.getDate.day%>
+            </div>
+
+            
+
+            
+        <a href="/hitts/msp" class="btn btn-default">목록으로</a>
+        <a href="/hitts/msp/edit/<%=msp.id%>" class="btn btn-primary">수정</a>
+
+<% include ../footer.ejs %>

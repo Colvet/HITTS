@@ -1,0 +1,53 @@
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+<div class="main">
+    <form action="" method="post" >
+        <table class="table table-bordered">
+            <tr>
+                <th>팀명</th>
+                <td><input type="text" name="team_name" class="form-control" required="" value="<%=cap.team_name%>"/></td>
+            </tr>
+            
+            <tr>
+                <th>주제</th>
+                <td><input type="text" name="theme" class="form-control" required="" value="<%=cap.theme%>"/>
+            </tr>
+            <tr>
+                <th>분야</th>
+                <td><select type="input" name="category" class="form-control" required="" value="<%=cap.category%>"/>
+                        <option value="">선택하세요</option>
+                        <option value ="OR">OR</option>
+                        <option value ="생산/물류">생산/물류</option>
+                        <option value ="시스템 분석">시스템 분석</option>
+                        <option value ="정보시스템공학">정보시스템공학</option>
+                        <option value ="품질경영관리">품질경영관리</option>
+                        <option value ="Data 분석">Data 분석</option>
+                        <option value ="기타">기타</option></td>
+            </tr>
+            <tr>
+                <th>지도교수</th>
+                <td><input type="text" name="professional" class="form-control" required="" value="<%=cap.professional%>"/></td>
+            </tr>
+            
+            
+        </table>
+        <button class="btn btn-primary"-->작성하기</a>
+    </form>
+</div>
+
+<!-- 스타일관련 -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.css" rel="stylesheet">
+<!-- 자바스크립트관련 -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/summernote.js"></script>
+<!-- 한글관련 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.6/lang/summernote-ko-KR.min.js"></script>
+
+<script>
+
+
+</script>
+
+
+
+<% include ../footer.ejs %>
+

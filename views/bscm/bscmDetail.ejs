@@ -1,0 +1,41 @@
+<% include ../header.ejs %>
+    
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div style="padding-bottom: 10px">
+                자료명 : <%=bscm.title%>
+            </div>
+            
+            <div style="padding-bottom: 10px">
+                작성자 : <%=bscm.writer%>
+            </div> 
+
+            <div style="padding-bottom: 10px">
+                파일 : 
+            <% if(bscm.record){%>
+                <a href="/hitts/bscm_uploads/<%=bscm.record%>" /> <%=bscm.record%> </a>
+                
+            </div>
+            <% } %>
+
+            <div style="padding-bottom: 10px">
+                설명 <%-bscm.description%>
+            </div>
+
+            <div style="padding-bottom: 10px">
+                작성일 : <%=bscm.getDate.year%> -
+                        <%=bscm.getDate.month%> -
+                        <%=bscm.getDate.day%>
+            </div>
+
+            
+
+            
+        <a href="/hitts/bscm" class="btn btn-default">목록으로</a>
+        <a href="/hitts/bscm/edit/<%=bscm.id%>" class="btn btn-primary">수정</a>
+
+<% include ../footer.ejs %>

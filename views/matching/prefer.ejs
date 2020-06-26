@@ -1,0 +1,103 @@
+
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+
+<div class="main">
+
+<hr>
+<form name="project_title" id="project_title" action="" method="post">
+  <table id="mytable" border="1" cellspacing="3" class="table table-bordered">
+
+    <tr>
+      <th>번호</th>
+      <th>설명</th>
+      <th>프로젝트 선호도 점수</th>
+    </tr>
+    <% if(project != null) { %>
+    <% for(var j=0; j< project.title.length ; j++ ) {%>
+    <tr>
+      <td> <%=j+1%> </td>
+      <td> <%=project.title[j].title_name%> </td>
+
+      <% if(pre != null ) { %>
+      <td>
+      <select type = "input" class="form-control" id="prefer[]" name="rank">
+        <option value="0" > 상관없음 </option>
+          <% for(var k=0; k < project.title.length; k++ ) { %>
+            <% if(pre.prefer[j].rank == k+1) { %>
+            <option value="<%=k+1%>" selected=""> <%=k+1%> 점 </option>
+          <% } else { %>
+          <option value="<%=k+1%>"> <%=k+1%> 점 </option>
+          <% }} %>
+      </select>
+      </td>
+      <% } else {%>
+      <td>
+        <select type = "input" class="form-control" id="prefer[]" name="rank">
+          <option value="0" selected="0"> 상관없음 </option>
+            <% for(var k=0; k < project.title.length; k++ ) { %>
+              <option value="<%=k+1%>"> <%=k+1%> 점</option>
+            <% } %>
+        </select>
+    </td>
+
+    <% }%>
+      
+    </tr>
+
+    <tbody></tbody>
+    <% }}; %>
+  </table>
+  
+  </form>
+  <button type="button" class="btn btn-primary"  id = 'project_prefer_save' lecture = "<%=req.params.now_lecture%>" name="<%=req.user.stu_name%>" > 저장 </button>
+  </div>
+
+
+<script>
+(function(){
+  $(document).ready(function() {
+    $(document).on('click','#project_prefer_save',function(){
+      var data=[];
+      var arr = $(":input").serializeArray();
+
+      $.each(arr, function(i, field){
+        for(; i < arr.length; i++){
+          data[i] ={'rank' : field.value};
+        };
+      });
+
+      for(var i = 0; i<data.length;i++){
+          for(var j=0; j< i;i++){
+            if(data[i].rank==data[j].rank && data[i].rank != "0"){
+              alert("선호도는 중복되면 안됩니다!");
+              return false;
+            }
+            else {
+              $.ajax({
+              url : '/hitts/matching/algo/project_prefer/save',
+              type : 'POST',
+              dataType : "json",
+              data : { 'lecture' : $(this).attr('lecture'), 'stu_name' : $(this).attr('name'), 'prefer' : JSON.stringify(data)}
+              })
+              .done(function(args){
+                  if(args.message ==="success"){
+                      alert("저장 성공!");
+                      location.reload();
+                  }
+                  else {
+                      alert("업데이트성공!");
+                      location.reload();
+                  }
+              })
+              .fail(function(args){
+                  console.log(args);
+              })
+              return true;
+            }
+          }
+      };
+    });
+  })
+})();
+</script>

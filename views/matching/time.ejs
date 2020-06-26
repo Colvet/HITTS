@@ -1,0 +1,248 @@
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+<div class="main">
+    <table class="table table-bordered">
+        <tr>
+            <th>월</th>
+            <th>화</th>
+            <th>수</th>
+            <th>목</th>
+            <th>금</th>
+            <th>토</th>
+            <th>일</th>
+            </tr>
+
+            <%for(var i=0; i< 7; i++){ %>
+            <% if( time!= null) { %>
+            
+                <td>
+                <select type="input" class="form-control" type ="input" id="date[]" name = "da">
+                <% if(time.date[i].day == "선택안함") { %>
+                    <option value="선택안함" selected=""> 선택 안함 </option>
+                    <option value="오전"> 오전(9시~12시) </option>
+                    <option value="오후"> 오후(12시~6시) </option>
+                    <option value="저녁"> 저녁(6시 이후) </option>
+                    <% } else if(time.date[i].day == "오전"){%>
+                    <option value="선택안함" > 선택 안함 </option>
+                    <option value="오전" selected=""> 오전(9시~12시) </option>
+                    <option value="오후"> 오후(12시~6시) </option>
+                    <option value="저녁"> 저녁(6시 이후) </option>
+                    <% } else if(time.date[i].day == "오후") { %>
+                    <option value="선택안함" > 선택 안함 </option>
+                    <option value="오전" > 오전(9시~12시) </option>
+                    <option value="오후" selected=""> 오후(12시~6시) </option>
+                    <option value="저녁"> 저녁(6시 이후) </option>
+                    <% }else { %>
+                    <option value="선택안함" > 선택 안함 </option>
+                    <option value="오전" > 오전(9시~12시) </option>
+                    <option value="오후" > 오후(12시~6시) </option>
+                    <option value="저녁" selected=""> 저녁(6시 이후) </option>
+                    <% } %>
+                </select>
+                </td>
+            <% } else {%>
+            <td>
+            <select type="input" class="form-control" type ="input" id="date[]" name = "da">
+                <option value="선택안함" selected=""> 선택 안함 </option>
+                <option value="오전"> 오전(9시~12시) </option>
+                <option value="오후"> 오후(12시~6시) </option>
+                <option value="저녁"> 저녁(6시 이후) </option>
+            </select>
+            </td>
+            <% }}%>
+
+
+
+
+                
+        
+    </table>
+<button type="button" class="btn btn-primary"  id = 'time_save'  lecture = "<%=req.params.now_lecture%>" > 저장 </button>
+
+<table class="table table-bordered table-hover">
+<h1> 선호 시간이 같은 사람</h1>
+
+    <tr>
+        <th>월</th>
+        <th>화</th>
+        <th>수</th>
+        <th>목</th>
+        <th>금</th>
+        <th>토</th>
+        <th>일 </th>
+    </tr>
+    
+    
+    <tr>
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[0].day == time.date[0].day && user[i].stu_num != time.stu_num && time.date[0].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+        </td>
+
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[1].day == time.date[1].day && user[i].stu_num != time.stu_num && time.date[1].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+
+        </td>
+        
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[2].day == time.date[2].day && user[i].stu_num != time.stu_num && time.date[2].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+
+        </td>
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[3].day == time.date[3].day && user[i].stu_num != time.stu_num && time.date[3].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+
+        </td>
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[4].day == time.date[4].day && user[i].stu_num != time.stu_num && time.date[4].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+            
+
+        </td>
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[5].day == time.date[5].day && user[i].stu_num != time.stu_num && time.date[5].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+            
+
+        </td>
+        <td>
+        <% if(time!=null){%>
+        <% for(var i=0; i< user.length; i++){ %>
+        <% if(user[i].date[6].day == time.date[6].day && user[i].stu_num != time.stu_num && time.date[6].day != "선택안함"){%>
+            <%=user[i].stu_name%> 
+            <button type="button" class="btn btn-primary btn-xs active" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+            send_num='<%=time.stu_num%>' send_name='<%=time.stu_name%>'
+            get_num='<%=user[i].stu_num%>' get_name='<%=user[i].stu_name%>'
+            get_email=''>팀 초대</button> </br>
+            <%}}}%>
+            
+
+        </td>
+        </tr>
+        
+            
+
+</table>
+    
+</div>
+
+<script>
+(function(){
+  $(document).ready(function() {
+    $(document).on('click','#time_save',function(){
+      var data=[];
+      var arr = $(":input").serializeArray();
+
+      $.each(arr, function(i, field){
+        for(; i < arr.length; i++){
+          data[i] ={'day' : field.value};
+        };
+      });
+
+    $.ajax({
+    url : '/hitts/matching/algo/time/save',
+    type : 'POST',
+    dataType : "json",
+    data : { 'lecture' : $(this).attr('lecture'), 'date' : JSON.stringify(data)}
+    })
+    .done(function(args){
+        if(args.message ==="success"){
+            alert("저장 성공!");
+            location.reload();
+
+        }
+        else {
+            alert("업데이트 성공!");
+            location.reload();
+        }
+    })
+    .fail(function(args){
+        console.log(args);
+    })
+    return true;
+    })           
+  })
+})();
+
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#team_invite',function(){
+            $.ajax({
+                url : '/hitts/matching/index/invite',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                        'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name'), 'get_email' : $(this).attr('get_email')},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("초대 했던 사람입니다!")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+})();
+
+</script>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery.yearSelector.js"></script>
+
+
+
+
+<% include ../footer.ejs %>
+

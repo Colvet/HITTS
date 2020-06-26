@@ -1,0 +1,138 @@
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+
+<% 
+function find_my_team() {
+    try{
+        if(my_team != '' && team != ''){
+            for(var i =0; i < team.length; i++){ 
+                for(var j =0; j< team[i].member.length; j++){ 
+                    if(team[i].member[j].stu_num == req.user.username) { 
+                        var my_team_num = i;
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            var my_team_num=999;
+        }
+        return my_team_num; 
+    }
+    catch(e){
+        console.log(e.message);
+    }
+}; 
+
+var tm=find_my_team();
+
+%>
+
+<%
+if(tm==999){
+  var ml = 1;
+}
+else if(team[tm].member.length == 2){
+  var ml = 2;
+}
+else if(team[tm].member.length == 3){
+  var ml = 3;
+}
+else if(team[tm].member.length == 4){
+  var ml = 4;
+}
+else {
+  var ml =5;
+}
+
+%>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="main">
+<div class="w3-container">
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink w3-green" onclick="openCity(event,'London')"> 1인 추천 </button>
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Paris')"> 2인 팀 추천</button>
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Tokyo')"> 3인 팀 추천</button>
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Seoul')"> 4인 팀 추천</button>
+  </div>
+<% if (ml == 1) { %>
+<div id="London" class="w3-container w3-border city" >
+<% include ./1team.ejs%>
+</div>
+<div id="Paris" class="w3-container w3-border city"  >
+<% include ./2team.ejs%>
+</div>
+<div id="Tokyo" class="w3-container w3-border city" >
+<% include ./3team.ejs%>
+</div>
+<div id="Seoul" class="w3-container w3-border city" >
+<% include ./4team.ejs%>
+</div>
+
+<% } else if(ml == 2 ) { %>
+<div id="London" class="w3-container w3-border city" >
+<% include ./1team.ejs%>
+</div>
+<div id="Paris" class="w3-container w3-border city"  >
+<% include ./2team.ejs%>
+</div>
+<div id="Tokyo" class="w3-container w3-border city" >
+<% include ./3team.ejs%>
+</div>
+
+<% } else if(ml ==3) { %>
+<div id="London" class="w3-container w3-border city" >
+<% include ./1team.ejs%>
+</div>
+<div id="Paris" class="w3-container w3-border city"  >
+<% include ./2team.ejs%>
+</div>
+<% } else if( ml==4){ %>
+<div id="London" class="w3-container w3-border city" >
+<% include ./1team.ejs%>
+</div>
+<% } else { %>
+<% }%>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+<script>
+
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-green", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-green";
+};
+
+
+
+</script>
+
+<script>
+
+</script>
+
+
+
+<% include ../footer.ejs %>
+
+

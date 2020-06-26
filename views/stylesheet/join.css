@@ -11,13 +11,14 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background-color: #f8f8f8;
+  background-image: url(../image/login_bg_blr30.png);
+  background-size:cover;
 }
 body .container {
   position: relative;
   overflow: hidden;
   width: 700px;
-  height: 500px;
+  height: 550px;
   margin: 80px auto 0;
   background-color: #ffffff;
   -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 30px;
@@ -144,6 +145,7 @@ body .container .content input.inpt:focus {
   border-color: #999999;
 }
 body .container .content input.submit {
+  float:right;
   font-size: 12px;
   line-height: 42px;
   display: block;
@@ -211,7 +213,7 @@ body .container .content .checkbox:checked + label:before {
   content: "✓";
 }
 body .container .content .submit-wrap {
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
 }
@@ -270,3 +272,11 @@ body .container .content .signup-cont {
   font-weight: 700;
   text-decoration: none;
 }
+.half.bg{
+  margin-top:20px;
+  font-family: 'Lato', sans-serif;
+  font-size:50px;
+  color:rgb(0,45,86);
+
+}
+

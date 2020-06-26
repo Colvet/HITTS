@@ -1,0 +1,89 @@
+
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+
+<div class="main">
+
+<button id='btn-add-row' class ="btn btn-primary">주제 추가하기</button>
+<button id='btn-delete-row' class="btn btn-danger">추가 줄 삭제</button>
+<hr>
+<form name="project_title" id="project_title" action="" method="post">
+  <table id="mytable" border="1" cellspacing="3" class="table table-bordered">
+
+    <tr>
+      <th>번호</th>
+      <th>설명</th>
+    </tr>
+    <% if(project != null) { %>
+    <% for(var j=0; j< project.title.length ; j++ ) {%>
+    <tr>
+      <td> <%=j+1%> </td>
+      <td><input type='text' name='title[]' id='title[]' class='form-control' value = "<%=project.title[j].title_name%>"/></td>
+      
+    </tr>
+
+    <tbody></tbody>
+    <% }}; %>
+  </table>
+  
+  </form>
+  <button type="button" class="btn btn-primary"  id = 'project_title_save' lecture = "<%=req.params.now_lecture%>"  > 저장 </button>
+  </div>
+
+
+<script>
+var a = $(':input').serializeArray();
+var num_row = a.length + 1 ;
+(function(){
+  $(document).ready(function() {
+    $("#btn-add-row").click(function () {
+      var row = "<tr>";
+      row += "<td><span>" + num_row + "</span></td>";
+      row += "<td><input type='text' name='title[]' id='title[]' class='form-control' /></td>";
+      row += "</tr>" ;
+      $("#mytable > tbody:last ").append(row);
+      num_row ++;
+    });
+
+    $("#btn-delete-row").click(function() {
+      $('#mytable > tbody:last > tr:last').remove();
+      if(num_row > a.length+1){
+        num_row --;
+      }
+      else {
+        num_row=a.length+1;
+      }
+    });
+    
+    $(document).on('click','#project_title_save',function(){
+      var data= [];
+      var arr = $(':text').serializeArray();
+
+      $.each(arr, function(i, field){
+        data[i] ={'title_name' : field.value};
+          for(; i < num_row-1; i++){
+        };
+      });
+        $.ajax({
+            url : '/hitts/matching/algo/project_title/save',
+            type : 'POST',
+            dataType : "json",
+            data : { 'lecture' : $(this).attr('lecture'),  'title' : JSON.stringify(data) },
+        })
+        .done(function(args){
+            if(args.message ==="success"){
+                alert("성공!");
+                location.reload();
+            }
+            else {
+                alert("업데이트성공!");
+                location.reload();
+            }
+        })
+        .fail(function(args){
+            console.log(args);
+        })
+    });
+  });
+})();
+</script>

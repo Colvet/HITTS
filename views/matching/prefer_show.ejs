@@ -1,0 +1,64 @@
+
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+
+<div class="main">
+
+<hr>
+<form name="project_title" id="project_title" action="" method="post">
+  <table id="mytable" border="1" cellspacing="3" class="table table-bordered">
+    <tr>
+    <th>이름</th>
+    <th>학번</th>
+      
+      <% for(var a=0; a < project.title.length ; a++){ %>
+        <th>주제 <%= a+1%></th>  
+      <% } %>
+      
+    </tr>
+  <% for(var i=0; i < user.length ; i++) { %>
+  <tr>
+  <td> <%= user[i].stu_name %> </td>
+  <td> <%= user[i].username %> </td>
+  
+  
+      <% for(var j=0; j < pre.length; j++) { %>  
+        <% for (k=0; k < pre[j].prefer.length; k++) { %>
+            <% if(user[i].username == pre[j].stu_num) { %>
+            <% if(pre[j].assign == k+1) { %>
+              
+              <td>
+              <% if(pre[j].prefer[k].rank == "0") { %>
+                상관없음
+                <% } else { %>
+                <%= pre[j].prefer[k].rank %>점 (배정)
+                <% } %>
+              </td>
+              <% } else { %>
+
+              <td>
+              <% if(pre[j].prefer[k].rank == "0") { %>
+              상관없음
+              <% } else { %>
+                <%= pre[j].prefer[k].rank %>점   
+                <% } %>
+              </td>
+              <% } %>
+      <% }}}%>
+    </tr>
+    
+  <% }; %>
+
+  </table>
+  
+  </form>
+  <%if(project.writer_num == req.user.username ) { %>
+    <a href="/hitts/matching/algo/prefer/run/<%=req.params.now_lecture%>" class="btn btn-primary" style="height:auto;" onclick="return confirm('실행 하시겠습니까?')" >실행</a>
+  <% } %>
+  </div>
+  
+
+
+<script>
+
+</script>

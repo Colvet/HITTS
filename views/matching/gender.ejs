@@ -1,0 +1,147 @@
+<% include ../header.ejs %>
+
+<% include ./sidebar.ejs %>
+
+<div class="main">
+<h1> <%= req.params.now_lecture %> </h1>
+<table>
+
+<th>
+    <h1>수강 인원 (남자 : <%=men %>명 여자 : <%=women %>명) </h1> 
+</th>
+
+<% if(req.user.pro == true) { %>
+<th style="position:right;">
+    <select class="form-control" type ="input" id="limit">
+        <option value="0" > 팀당 최소 인원 선택 </option>
+        <option value="4"> 4 </option>
+        <option value="3"> 3 </option>
+        <option value="2"> 2 </option>
+    </select>
+</th>
+
+<th>
+    <button type="button" class="btn btn-primary"  id = 'random_gender'  lecture = "<%=req.params.now_lecture%>" > 랜덤 실행 </button>
+</th>
+<% } %>
+</table>
+<div class="col-lg-6">
+    <table class="table table-bordered table-hover">
+        
+            <th>이름</th>
+            <th>학번</th>
+            <th>성별</th>
+        </tr>
+        <% user.forEach( function(user){ %>
+
+        <% if (req.user.stu_name != user.stu_name ) { %>
+        <tr>
+            <td>
+                <%=user.stu_name%>
+            </td>
+            <td>
+                <%=user.username%>
+            </td>
+            <td>
+            <% if (user.sex == "1") { %> 
+                여자
+            <% } else { %>
+                남자
+            <% }%>
+            </td>
+            
+            
+        </tr>
+        <% } %>
+        <% }) ;%>
+    </table>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="<%= paginate.href(true) %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        <% pages.forEach(function(page){ %>
+            <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+                <a href="<%= page.url %>"><%= page.number %></a>
+            </li>
+        <%})%>
+
+        <%if(paginate.hasNextPages(pageCount)){%>
+            <li>
+                <a href="<%= paginate.href() %>">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <%}%>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+<div class="col-lg-6">
+    <table class="table table-bordered table-hover">
+        
+            <th>팀원</th>
+            <th>팀원 수</th>
+        </tr>
+        <% team.forEach( function(team){ %>
+    
+    <tr>
+        <td>
+        <% for (var i = 0; i < team.member.length;i++ ) { %>
+            <%=team.member[i].stu_name%> 
+        <% } %> 
+        </td>
+        
+        <td>
+            <%=team.member.length%> (남 : <%=team.member.length-team.wcount%> 여 : <%=team.wcount%>)
+        </td>
+        </tr>
+        <%})%>
+    </table>
+   
+</div>
+
+
+
+
+
+
+
+</div>
+<script>
+
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#random_gender',function(){
+            $.ajax({
+                url : '/hitts/matching/algo/gender/random',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'limit' : $('#limit').val()},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+                    alert("성공!");
+                    console.log(args.message);
+                    location.reload();
+
+                }
+                
+                else {
+                    alert("팀당 최소인원을 선택해 주세요");
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+})();
+
+</script>
+
+<% include ../footer.ejs %>

@@ -1,0 +1,113 @@
+<% include ../header.ejs %>
+
+<% include ./sidebar.ejs %>
+
+<div class="main">
+<h1> <%= req.params.now_lecture %> </h1>
+<div class="col-lg-6">
+<table class="table table-bordered table-hover">
+    <h1>수강 인원</h1>
+                <th>이름</th>
+                <th>팀 신청</th>
+            </tr>
+            <% user.forEach( function(user){ %>
+
+            <% if (req.user.stu_name != user.stu_name ) { %>
+            <tr>
+                <td>
+                    <%=user.stu_name%>
+                </td>
+                
+                <td>
+                    <button type="button" class="btn btn-primary" id ='team_invite' lecture='<%=req.params.now_lecture%>' 
+                    send_num='<%=my.username%>' send_name='<%=my.stu_name%>'
+                    get_num='<%=user.username%>' get_name='<%=user.stu_name%>'
+                    get_email='<%=user.email%>'
+                    >팀 초청</button>
+                </td>
+            </tr>
+            <% } %>
+            <% }) ;%>
+    </table>
+    <nav>
+    <ul class="pagination">
+        <li>
+            <a href="<%= paginate.href(true) %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+    <% pages.forEach(function(page){ %>
+        <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+            <a href="<%= page.url %>"><%= page.number %></a>
+        </li>
+    <%})%>
+
+    <%if(paginate.hasNextPages(pageCount)){%>
+        <li>
+            <a href="<%= paginate.href() %>">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    <%}%>
+    </ul>
+    </nav>
+</div>
+
+<div class="col-lg-6">
+<table class="table table-bordered table-hover">
+<h1> 팀 현황</h1>
+    <tr>
+        <th>과목명</th>
+        <th>팀원</th>
+    </tr>
+    <% team.forEach( function(team){ %>
+    
+    <tr>
+        <td>
+            <%=team.lecture%>
+        </td>
+        
+        <td>
+        <% for (var i = 0; i < team.member.length;i++ ) { %>
+            <%=team.member[i].stu_name%> 
+            
+        <% } %> 
+        </td>
+        </tr>
+        <%})%>
+            
+
+</table>
+</div>
+</div>
+<script>
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#team_invite',function(){
+            $.ajax({
+                url : '/hitts/matching/index/invite',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                        'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name'), 'get_email' : $(this).attr('get_email')},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("초대 했던 사람입니다!")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+})();
+
+</script>
+
+<% include ../footer.ejs %>

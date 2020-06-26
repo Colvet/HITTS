@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+      <!--이미지슬라이더-->
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
 
     <title>HITTS</title>
 
@@ -16,32 +20,205 @@
 
     <!--내비바 만드는거-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+
+
+
+    <meta name="Generator" content="EditPlus®">
+    <!--사이드바-->
+    <link rel="stylesheet" type="text/css" href="../../semantic/semantic.css">
+    <script src="semantic/semantic.js"></script>
+
+   
+<style>
+
+.container{
+  background-color:rgba(218,218,211,147);
+}
+
+#StudyP {
+  border-color:#342FC7;
+}
+#SRPanel {
+  border-color:#FFCD12;
+}
+#TPpanel {
+  border-color:#00B700;
+}
+#ARCpanel{
+  border-color:#FF7012;
+}
+
+#StudyPanelH {
+  background-color:#342FC7;
+    border-color:#342FC7;
+ }
+
+#SRPanelH {
+  background-color:#FFCD12;
+  border-color:#FFCD12;
+ }
+#TPpanelH{
+  background-color:#00B700;
+  border-color:#00B700;
+}
+#ARCpanelH{
+  background-color:#FF7012;
+  border-color:#FF7012;
+}
+#testDetail{
+  float:right;
+  margin:10px;
+  width:100%;
+  border-top:2px solid #000
+}
+#testDetailTopic {
+  height:28px
+  margin:0;
+  border-bottom:1px solid #dadada;
+  padding:8px;
+  text-align:center;
+  font-size:12px;
+  background-color:#97b6ff
+}
+#testDetailContent{
+  padding-left:8px;
+  border-bottom:1px solid #dadada;
+  padding-right:8px;
+}
+#testDetailDescription{
+  padding: 15px 15px 30px 14px;
+  margin:10px;
+  border-bottom: 2px solid #040404
+}
+
+
+  .ri{
+    font-size:22px;
+    margin-bottom:5%;
+  }
+  .ellipsis {
+    width:100%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   }
+     .ellipsis2 {
+  height:100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+   }
+
+   @keyframes slidy {
+0% { left: 0%; }
+20% { left: 0%; }
+25% { left: -100%; }
+45% { left: -100%; }
+50% { left: -200%; }
+70% { left: -200%; }
+75% { left: -300%; }
+95% { left: -300%; }
+100% { right: 400%; }
+}
+
+body { margin: 0; } 
+div#slider { overflow: hidden; }
+div#slider figure img { width: 20%; align:auto; }
+div#slider figure { 
+margin-left:0%;
+margin-right:0%;
+position: relative;
+width: 500%;
+margin-bottom: 10px;
+top:0;
+left: 0;
+text-align: left;
+font-size: 0;
+-webkit-animation: 20s slidy ease-in-out infinite;
+animation: 20s slidy ease-in-out infinite; 
+}
+</style>
 </head>
+
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+
+<script>
+<%
+var today = new Date();
+var year = today.getFullYear();
+%>
+</script>
+
+
+<nav class="navbar navbar-inverse" style="background-color:rgba(0,45,86,147); color:#fff ">
   <div class="container-fluid">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">HITTS</a>
+      <a class="navbar-brand" href="/hitts/admin/index">HITTS</a>
     </div>
   
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class=""><a href="/hitts/admin/index">Home</a></li>
+
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu<span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">자료 검색<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">팀구성</a></li>
-            <li><a href="#">538예약</a></li>
-            <li><a href="#">과거 자료 찾기</a></li>
+            <li><a href="/hitts/search/tests">자료 검색</a></li>
+            <li><a href="/hitts/cap/index/<%=year%>">캡스톤 디자인프로젝트</a></li>
+            
           </ul>
         </li>
-        <li><a href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')" >LOGOUT</a> </li>
+
+        <li><a href="/hitts/reservation/index"> 스터디룸 예약</a></li>
+        <li><a href="/hitts/matching/index">팀구성</a></li>
+        
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">학과게시판<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/hitts/board">학과공지</a></li>
+            <li><a href="/hitts/bscm">BSCM</a></li>
+            <li><a href="/hitts/cpim">CPIM</a></li>
+            <li><a href="/hitts/msp">MSP</a></li>
+          </ul>
+        </li>
+        
+
+        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings" style="background-color:#000; font-color:#fff; padding:10px;">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                    </a>
+                                    <div class="media-body">
+                                      <h5><%= req.user.stu_name%>님 </h5>
+                                      <h5>환영합니다.</h5>
+
+                                    </div>
+                                </div>
+                                <a href="/hitts/accounts/lecture/now" class="btn btn-info btn-xs" style="margin-bottom:5px;">마이페이지</a>&nbsp; <a class="btn btn-danger btn-xs"  href="/hitts/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')" >로그아웃</a>
+
+                            </div>
+                        </li>
       </ul>
+      
     </div>
   </div>
 </nav>
+

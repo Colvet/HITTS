@@ -1,0 +1,286 @@
+ 
+<script>
+
+
+<% 
+
+// 평균
+function average(data){
+  var sum = data.reduce(function(sum, value){
+    return sum + value;
+  }, 0);
+  var avg = sum / data.length;
+  return avg;
+};
+
+// 표본 표준 평균구하기
+function average2(data){
+  var sum = data.reduce(function(sum, value){
+    return sum + value;
+  }, 0);
+  var avg = sum / (data.length-1);
+  return avg;
+};
+
+// Array 2개 평균 구하기
+function avg_array(data, data2){
+    var after= [];
+    for(var num=0; num<6; num++){
+        after.push( (data[num] + data2[num]) / 2);
+    }
+    return after;
+};
+
+// 능력치 구하기
+function feature(a, b){
+    var feature2 = (a/b)-1;
+    var feature = feature2.toFixed(3);
+    return feature*-100
+}
+
+// 표본 표준편차 구하기
+function standardDeviation(values){
+  var avg = average(values);
+  var squareDiffs = values.map(function(value){
+    var diff = value - avg;
+    var sqrDiff = diff * diff;
+    return sqrDiff;
+  });
+  var avgSquareDiff = average2(squareDiffs);
+  var stdDev = Math.sqrt(avgSquareDiff);
+  return stdDev;
+};
+
+
+
+// member 수가 data명인 팀 번호 구하기 
+function nmember_num(data){
+    var mem = [];
+    for(var k=0; k < team.length; k++){
+        if(team[k].member.length==data){
+            mem.push(k);
+        }
+    };
+    return mem;
+};
+
+//내 팀 번호, 멤버 수 구하기
+function find_my_team() {
+    try{
+        if(my_team != '' && team != ''){
+            for(var i =0; i < team.length; i++){ 
+                for(var j =0; j< team[i].member.length; j++){ 
+                    if(team[i].member[j].stu_num == req.user.username) { 
+                        var my_team_num = i;
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            var my_team_num=999;
+        }
+        return my_team_num; 
+    }
+    catch(e){
+        console.log(e.message);
+    }
+};
+
+function cal_std(tema_num) {
+    var name = []; 
+    var my_op =[];
+    var my_lo =[];
+    var my_an =[];
+    var my_inf =[];
+    var my_qu =[];
+    var my_da =[];
+
+    if(tema_num != 999){
+        for(var i=0; i < team[tema_num].member.length;i++){ 
+            name[i] = team[tema_num].member[i].stu_num
+        }; 
+        for(var i =0; i < name.length; i++){
+            for(var j=0; j < user.length; j++){
+                if(name[i]== user[j].username) {
+                    my_op[i] = user[j].score[0];
+                    my_lo[i] = user[j].score[1];
+                    my_an[i] = user[j].score[2];
+                    my_inf[i] = user[j].score[3];
+                    my_qu[i] = user[j].score[4];
+                    my_da[i] = user[j].score[5];
+                }
+            }
+        }; 
+        var avg = [];
+        var avg_mop = average(my_op);
+        var avg_mlo = average(my_lo);
+        var avg_man = average(my_an);
+        var avg_minf = average(my_inf);
+        var avg_mqu = average(my_qu);
+        var avg_mda = average(my_da);
+        avg.push(avg_mop, avg_mlo, avg_man, avg_minf, avg_mqu, avg_mda)
+        return [standardDeviation(avg), avg]
+    } else {
+        my_op = my.score[0];
+        my_lo = my.score[1];
+        my_an = my.score[2];
+        my_inf = my.score[3];
+        my_qu = my.score[4];
+        my_da = my.score[5];
+        var avg = [];
+        avg = [my.score[0], my.score[1], my.score[2], my.score[3], my.score[4], my.score[5]]
+        return [standardDeviation(avg), avg]
+    }
+};
+
+
+var my_team_num=find_my_team();
+var my_std = cal_std(my_team_num)[0];
+var my_avg = cal_std(my_team_num)[1];
+
+var ttwo = nmember_num(4);  //3명인 팀 구하기
+
+var member_name = [];
+var member_name2 = [];
+
+var member_num = [];
+var member_num2 = [];
+
+for(var i of ttwo){ 
+    for(var j =0; j< team[i].member.length; j++){ 
+        member_name2.push(team[i].member[j].stu_name);
+        member_num2.push(team[i].member[j].stu_num);
+    }
+    member_name.push(member_name2);
+    member_num.push(member_num2);
+    member_name2 = [];
+    member_num2 = [];
+};
+
+var arr_four= [];   
+var arr_four2=[];
+var new_ffour = [];
+
+for(var key of ttwo){
+    arr_four.push(feature(standardDeviation(avg_array(my_avg, cal_std(key)[1])), my_std));
+    arr_four2.push(feature(standardDeviation(avg_array(my_avg, cal_std(key)[1])), my_std));
+};
+
+arr_four.sort((a, b) => b - a);
+
+for(var i =0; i< 4; i ++){
+    new_ffour.push(arr_four2.indexOf(arr_four[i]));
+};
+
+%>
+</script>
+
+
+<table class="table table-bordered table-hover" style="width:80%; margin:10px;">
+<% count =0 %>
+<% for(var key of new_ffour){ %>
+<% if(arr_four2[key] > 0 ) {%>
+    <% if(key != my_team_num) {%>
+        <th>
+            <%=count+1%>순위
+            <button type="button" class="btn btn-primary btn-sm" id ='team_invite4' lecture='캡스톤디자인프로젝트' 
+                    send_num='<%=my.username%>' send_name='<%=my.stu_name%>'
+                    get_num='<%=member_num[key]%>' get_name='<%=member_name[key]%>'>팀 초청</button> 
+            <canvas id="marksChart4[<%=key%>]" width="600" height="400"> </canvas>
+            <% count = count +1 %>
+        </th>
+    
+        <% if(count==2){ %>
+        <tr></tr>
+        <%}%>
+    <%}}}%>
+    
+
+</table>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+<script>
+
+<% for(var key of new_ffour){ %>
+<% if( arr_four2[key]> 0 ) {%>
+  var marksCanvas = document.getElementById("marksChart4[<%=key%>]");
+  var marksData = {
+    labels: ["Operation", "Logistics","Analysis", "Info", "Quality","Data"],
+    datasets: [{
+      label: "본인 팀",
+      backgroundColor: "rgba(0,0,200,0.2)",
+      data: [<%=my_avg%>]
+    },{
+      label: "(<%=member_name[key]%>)과 같이 팀할 경우" ,
+      backgroundColor: "rgba(200,0,0,0.2)",
+      data: [<%= avg_array(my_avg, cal_std(key)[1]) %>]
+    }]
+  };
+  var chartOptions = {
+    scale: {
+      ticks: {
+        beginAtZero: false,
+        min: -3,
+        max: 2,
+        stepSize: 1,
+      },
+      pointLabels: {
+        fontSize: 18
+      }
+    },
+    legend: {
+      position: 'top'
+    },
+    title : {
+        display : true,
+        fontSize : 18,
+        text : '<%=arr_four2[key].toFixed(1)%>% 더 고르게 변화합니다'
+               
+    }
+  };
+  
+  var radarChart = new Chart(marksCanvas, {
+    type: 'radar',
+    data: marksData,
+    options : chartOptions
+  });
+<% }}%>
+
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#team_invite4',function(){
+            $.ajax({
+                url : '/hitts/matching/index/invite4',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                        'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name') },
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("초대 했던 사람입니다!")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+})();
+</script>
+
+
+
+

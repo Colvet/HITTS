@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--이미지슬라이더-->
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+
+    <title>HITTS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas2.css" rel="stylesheet">
+
+    <!--내비바 만드는거-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../../views/stylesheet/offcanvas2.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="Generator" content="EditPlus®">
+    <!--사이드바-->
+    <link rel="stylesheet" type="text/css" href="../semantic/semantic.css">
+    <script src="../semantic/semantic.js"></script>
+
+
+
+    <style>
+    body{
+      padding:0px;
+      margin:0px;
+    }
+
+    .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+      [name=bookbtn]{
+        background: #d6d6d6;
+        background-image: -webkit-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -moz-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -ms-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -o-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: linear-gradient(to bottom, #d6d6d6, #b5b5b5);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #000000;
+        font-size: 20px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+      }
+
+        #cnfmbtn {
+          -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+          background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+          filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+          background-color:#3d94f6;
+          -webkit-border-top-left-radius:42px;
+          -moz-border-radius-topleft:42px;
+          border-top-left-radius:42px;
+          -webkit-border-top-right-radius:42px;
+          -moz-border-radius-topright:42px;
+          border-top-right-radius:42px;
+          -webkit-border-bottom-right-radius:42px;
+          -moz-border-radius-bottomright:42px;
+          border-bottom-right-radius:42px;
+          -webkit-border-bottom-left-radius:42px;
+          -moz-border-radius-bottomleft:42px;
+          border-bottom-left-radius:42px;
+          text-indent:0;
+          border:1px solid #337fed;
+          display:inline-block;
+          color:#ffffff;
+          font-family:Arial;
+          font-size:15px;
+          font-weight:bold;
+          font-style:normal;
+          height:46px;
+          line-height:46px;
+          width:150px;
+          text-decoration:none;
+          text-align:center;
+          text-shadow:1px 1px 0px #1570cd;
+          position:center;
+        }
+        #cnfmbtn:hover {
+          background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+          background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+          filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+          background-color:#1e62d0;
+        }
+        #cnfmbtn:active {
+          position:relative;
+          top:1px;
+        }
+      input[type=radio], input[type=checkbox] {
+        display:none;
+      }
+      td{
+        height: 35px;
+        padding:3px;
+      }
+    
+    input[type=radio] + label, input[type=checkbox] + label {
+        width:80px;
+        height: 28px;
+        display:inline-block;
+        margin:-2px;
+        padding: 4px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: #f5f5f5;
+        background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+        background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+        background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+        background-repeat: repeat-x;
+        -webkit-border-top-left-radius:12px;
+        -moz-border-radius-topleft:12px;
+        border-top-left-radius:12px;
+        -webkit-border-top-right-radius:12px;
+        -moz-border-radius-topright:12px;
+        border-top-right-radius:12px;
+        -webkit-border-bottom-right-radius:12px;
+        -moz-border-radius-bottomright:12px;
+        border-bottom-right-radius:12px;
+        -webkit-border-bottom-left-radius:12px;
+        -moz-border-radius-bottomleft:12px;
+        border-bottom-left-radius:12px;
+        border: 1px solid #ccc;
+        border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+        border-bottom-color: #b3b3b3;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+      }
+    
+       input[type=radio]:checked + label, input[type=checkbox]:checked + label{
+         width:70px;
+         height: 28px;
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        background-color:#e3f307;
+      }
+      #ltitlke{
+        margin-left:20px;
+        text-align:center;
+        background-color:#97c4fe;
+      }
+
+      #ltitle { 
+        FONT-SIZE: 22px; 
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+        COLOR: #2E86B9; 
+        PADDING-BOTTOM: 10px;
+        POSITION:relative;
+        left:5%;
+        padding: 3px 5px; 
+        margin: 5px 0; 
+        BACKGROUND-COLOR: #FFF;
+        z-index:-90;
+      } 
+      #period{
+  background-color:rgb(179, 131, 44)
+}
+#book{
+  width:500px;
+  margin:10px;
+  margin-bottom:5px;
+  background-color:rgb(104, 104, 104);
+  text-align:center;
+  color:#fff;
+  border-spacing:50px;
+}
+#roomtype{
+  background-color:rgb(3, 34, 119);
+}
+#booktitle{
+  position:relative;
+  left:30px;
+  margin-bottom:20px;
+
+}
+
+#booksidebar{
+  padding: 20px;
+  -webkit-padding-start: 20px;
+}
+#book_div{
+  display:inline-block;
+  width:551px;
+  float:left;
+}
+#reser_status_div{
+display:inline-block;
+float:left;
+width:500px;
+
+}
+#wrapper{
+  height:1200px;
+}
+#rules{
+  height:40px;
+  margin:3px;
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  background: #34d960;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+#rules:hover{
+  background: #2ab04e;
+  text-decoration: none;
+}
+    </style>
+
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-inverse" style="background-color:rgba(0,45,86,147); color:#fff ">
+  <div class="container-fluid">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/admin/index">HITTS</a>
+    </div>
+  
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+      <li class=""><a href="/hitts/admin/index">Home</a></li>
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">자료 검색<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/hitts/search/tests">자료 검색</a></li>
+          <li><a href="/hitts/cap/index/<%=year%>">캡스톤 디자인프로젝트</a></li>
+          
+        </ul>
+      </li>
+
+      <li><a href="/hitts/reservation/index"> 스터디룸 예약</a></li>
+      <li><a href="/hitts/matching/index">팀구성</a></li>
+      
+
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">학과게시판<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/hitts/board">학과공지</a></li>
+          <li><a href="/hitts/bscm">BSCM</a></li>
+          <li><a href="/hitts/cpim">CPIM</a></li>
+          <li><a href="/hitts/msp">MSP</a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                              <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                          </a>
+                          <div class="dropdown-menu dropdown-settings" style="background-color:#000; font-color:#fff; padding:10px;">
+                              <div class="media">
+                                  <a class="media-left" href="#">
+                                      <img src="../assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                  </a>
+                                  <div class="media-body">
+                                    <h5><%= req.user.stu_name%>님 </h5>
+                                    <h5>환영합니다.</h5>
+
+                                  </div>
+                              </div>
+                              <a href="/hitts/accounts/lecture/now" class="btn btn-info btn-xs" style="margin-bottom:5px;">마이페이지</a>&nbsp; <a class="btn btn-danger btn-xs"  href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')" >로그아웃</a>
+
+                          </div>
+                      </li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+<!-- 여기까지가 원래 해더-->
+<div class="row">
+  <div id="booktitle">
+    <h1>538 스터디룸 예약</h1>
+  </div>
+  </div>
+<!--여기부터 원래 사이드바-->
+<!--
+<div class="col-sm-2" style="max-width:250px;min-width:160px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">메뉴</div>
+        <div class="panel-body" style="padding:5px;">
+            <ul id="booksidebar">
+                <li><a href="./bookmain2.html">예약 하기</a></li>
+                <li><a href="./bookcnl.html">예약 취소</a></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+</div>-->
+<!-- 여기까지가 사이드바 들어가는거-->
+<div id="wrapper">
+<div id="book_div">
+    <div id="ltitle"sytle="margin:20px;">
+        <div class="time" style="position:relative">
+          <script> 
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+      
+            if(dd<10) {
+                dd='0'+dd
+            } 
+      
+            if(mm<10) {
+                mm='0'+mm
+            } 
+      
+            today = yyyy+'년'+mm+'월'+dd+'일';
+            document.write(today) 
+          </script>
+          <%
+  var cla = [];
+  for(var i=0; i < reservation.length; i++){
+    cla.push(reservation[i].class);
+  }
+  %>
+          <a>스터디룸 예약 현황</a> 
+        </div>
+        </div>
+  
+  
+    <table id="book">
+      <tr id="roomtype" style="background-color:rgb(3, 34, 119)">
+        <td> </td>
+          <% for(var i=1; i < 5 ; i++){ %>
+            <td><h3>스터디룸<%=i%> </h3></td>
+            
+          <% } %>
+
+        </tr>
+        
+        <script>
+        <% for(i=1; i<13; i++){ %>
+            document.write("<tr>");
+            document.write("<td id='period'><%=i%>교시</td>");
+            <% for(j=1;j<5;j++){ %>
+              
+            document.write("<td>");
+            
+            
+
+            <% if(cla.indexOf(j+"/"+i) === -1){ %>
+            document.write("<input type='checkbox' class='btn btn-primary'  name='bookbtn[]' id='bookbtn<%=j%><%=i%>' value='<%=j%>/<%=i%>' onclick='count_ck(this)'>");
+            document.write("<label for='bookbtn<%=j%><%=i%>'> <%=i%>교시 </label>");
+            <% }else {  %>
+            
+            document.write("<button class='btn btn-danger'  name='bookbtn[]' id='bookbtn<%=j%><%=i%>' value='<%=j%>/<%=i%>' onclick='count_ck(this)'>");
+            document.write("<label for='bookbtn<%=j%><%=i%>'> 예약</label>");
+            <% } %>
+            
+            
+            document.write("</td>");
+
+              
+              
+              
+            <% } %>
+            document.write("</tr>");
+            
+          <% } %>
+    
+            </script>
+            
+      <td style="font-size:8px;" id="period"> </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+                
+    </tr>
+
+
+  </table>
+    <% if (my.length == 2 ){ %>
+      <center> <h3>이미 예약을 2회 하셨습니다.<h3></center>
+    
+    <% } else {%>
+    <center><button type='button' id='cnfmbtn' /> 예약하기</center>
+    <% }%>
+    </div>
+
+
+
+<div id="reser_status_div">
+  <table class="table table-bordered table-hover">
+  <center><h1> 예약 확인</h1></center>
+
+      <tr>
+          <th> 예약 현황 </th>
+          <th> 취소 </th>
+      </tr>
+          
+      <% my.forEach( function(my){ %>
+          <tr>
+              <td>
+                  <% var ss = my.class.split("/"); %>
+                  스터디룸<%=ss[0]%> &ensp; <%=ss[1]%> 교시
+              </td>
+              <td>
+              <a href="/hitts/reservation/delete/<%=my.id%> " class="btn btn-danger btn-xs" style="height:auto;" >예약 취소</a>
+          
+              </td>
+          </tr>
+          <% }); %>
+  
+  </table>
+</div>
+
+
+<button id="myBtn">이용안내</button>
+
+<!--info modal-->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+  <span class="close">X</span>
+  <center><h3>IME 스터디룸 이용 수칙</h3>
+  <p>스터디룸은 1인 최대 2시간 이용 가능합니다.</p>
+  <p>사용시 깨끗하게 사용하여 주세요.</p>
+  <p>다른 학생들에게 피해가되는 큰 소음 등에 주의해 주세요</p>
+  <p>사용 후 뒷정리는 철저하게 해주세요.</p>
+  <p>음식물 취식은 금지합니다.</p><br>
+  <h3>스터디룸 배치도</h3>
+  <img src="../../image/538info.png" width="40%" height="40%"></center>
+  </div>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+
+
+</body>
+</html>
+
+
+
+<script>
+
+
+function count_ck(obj){
+
+  var chkbox = document.getElementsByName("bookbtn[]");
+  var chkCnt = 0;
+
+for(var i=0;i<chkbox.length; i++){
+  if(chkbox[i].checked){
+      chkCnt++;
+    }
+  }
+
+
+if(chkCnt>2 ){
+  alert("스터디룸은 1인 1일 최대 2시간 까지만 예약이 가능합니다.");
+  obj.checked = false;
+  return false;
+  }
+  else if (chkCnt ==2 && <%=my.length%> ==1){
+    alert("스터디룸은 1인 1일 최대 2시간 까지만 예약이 가능합니다.");
+  obj.checked = false;
+  return false;
+  }
+}
+
+(function(){
+  $(document).ready(function() {
+    $(document).on('click','#cnfmbtn',function(){
+      var data=[];
+      var arr = $(':input').serializeArray();
+      
+      $.each(arr, function(i, field){
+        for(; i < arr.length; i++){
+          data[i] ={'class' : field.value};
+        };
+      });
+
+      $.ajax({
+          url : '/hitts/reservation/ok',
+          type : 'POST',
+          data : { 'class' : JSON.stringify(data) },
+      })
+      .done(function(args){
+          if(args.message ==="success"){
+
+              alert("예약 완료!")
+              location.reload();
+
+          }
+          else if(args.message == "check"){
+            alert("시간을 선택해 주세요")
+            location.reload();
+
+            }
+          else{
+            alert("이미 예약이 있습니다")
+            location.reload();
+
+          }
+      })
+      .fail(function(args){
+        console.log(args);
+      })
+    });
+  });
+})();
+
+</script>

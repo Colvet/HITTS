@@ -1,0 +1,49 @@
+<% include ../header.ejs %>
+<div class="row">
+<% include ./sidebar.ejs %>
+<div class="main">
+<div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">업데이트 (E-class 비밀번호 입력)</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" action="" id="now_form" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <%=user.username%>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="password" type="password" value="" required="">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password 확인" name="password2" type="password" value="" required="">
+                        </div>
+                        
+                        <!-- Change this to a button or input when using this as a form -->
+                        <button type="submit" class="btn btn-lg btn-success" >업데이트</button>
+                        
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+(function(){
+    $(document).ready(function() {
+        $('#now_form').submit(function(){
+            var $passwordInput = $('#now_form input[name=password]');
+            var $passwordInput2 = $('#now_form input[name=password2]');
+
+            if($passwordInput.val() !== $passwordInput2.val()){
+                alert("패스워드와 확인용패스워드를 똑같이 입력해주세요.");
+                return false;
+            }
+            return true;
+        });
+    });
+})();
+</script>
+<% include ../footer.ejs %>

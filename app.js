@@ -5,11 +5,12 @@ var bodyParser = require('body-parser');
 var cookieParser= require('cookie-parser');
 
 var flash = require('connect-flash');
-
+var Chart = require('chart.js');
 //passport
 var passport = require('passport');
 var session = require('express-session');
 
+var mathjs = require('mathjs');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var autoIncrement = require('mongoose-auto-increment');
@@ -25,7 +26,16 @@ autoIncrement.initialize(connect);
 
 
 var admin = require('./routes/admin');
-var accounts = require('./routes/accounts')
+var accounts = require('./routes/accounts');
+var search = require('./routes/search');
+var board = require('./routes/board');
+var bscm = require('./routes/bscm');
+var cpim = require('./routes/cpim');
+var msp = require('./routes/msp');
+var matching = require('./routes/matching');
+var cap = require('./routes/cap');
+var reservation = require('./routes/reservation');
+var auth = require('./routes/auth');
 
 
 var app = express();
@@ -45,10 +55,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //업로드 path 추가
-app.use('/uploads', express.static('uploads'));
+app.use('/hitts/uploads', express.static('uploads'));
+app.use('/hitts/cap_uploads', express.static('cap_uploads'));
+app.use('/hitts/bscm_uploads', express.static('bscm_uploads'));
+app.use('/hitts/cpim_uploads', express.static('cpim_uploads'));
+app.use('/hitts/msp_uploads', express.static('msp_uploads'));
+app.use('/hitts/board_uploads', express.static('board_uploads'));
 
 //static path 추가
-app.use('/static', express.static('static'));
+app.use('/hitts/static', express.static('static'));
 
 //session 관련 셋팅
 var connectMongo = require('connect-mongo');
@@ -77,19 +92,28 @@ app.use(flash());
 //로그인 정보 뷰에서만 변수로 셋팅, 전체 미들웨어는 router위에 두어야 에러가 안난다
 app.use(function(req, res, next) {
   app.locals.isLogin = req.isAuthenticated();
-  //app.locals.urlparameter = req.url; //현재 url 정보를 보내고 싶으면 이와같이 셋팅
+  app.locals.urlparameter = req.url; //현재 url 정보를 보내고 싶으면 이와같이 셋팅
   app.locals.userData = req.user; //사용 정보를 보내고 싶으면 이와같이 셋팅
+  app.locals.req = req;
   next();
 });
 
-app.get('/', function(req,res){
+app.get('/asd', function(req,res){
     res.send('first app');
 });
 
 // Routing
-app.use('/admin', admin);
-app.use('/accounts', accounts);
-
+app.use('/hitts/admin', admin);
+app.use('/hitts/accounts', accounts);
+app.use('/hitts/search',search);
+app.use('/hitts/board',board);
+app.use('/hitts/bscm',bscm);
+app.use('/hitts/cpim',cpim);
+app.use('/hitts/msp',msp);
+app.use('/hitts/matching',matching);
+app.use('/hitts/cap',cap);
+app.use('/hitts/reservation',reservation);
+app.use('/hitts/auth',auth);
 
 app.listen( port, function(){
     console.log('Express listening on port', port);

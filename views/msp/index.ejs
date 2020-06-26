@@ -1,0 +1,71 @@
+<% include ../header.ejs %>
+<link rel="stylesheet" type="text/css" href="../../stylesheet/tests.css">
+<% include ./sidebar.ejs %>
+<div class="main">
+
+    <h1> MSP </h1>
+    <table class="table table-bordered table-hover" style="max-width:70%;">
+        <tr>
+            <th>자료명</th>
+            <th>설명</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        
+
+        <% msps.forEach( function(msp){ %>
+
+        <tr>
+            <td>
+                <a href="/hitts/msp/detail/<%=msp.id%>"><%=msp.title%></a>
+            </td>
+            <td>
+                <%-msp.description%>
+            </td>
+            <td>
+                <%=msp.writer%>
+            </td>
+            <td>
+                <%=msp.getDate.year%> -
+                <%=msp.getDate.month%> -
+                <%=msp.getDate.day%> 
+            </td>
+
+            <% if(msp.write_num == req.user.username || req.user.pro == true) { %>
+
+            <td>
+                <a href="/hitts/msp/delete/<%=msp.id%> " class="btn btn-danger" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>
+            </td>
+            <% } %>
+        </tr>
+        <%});%>
+    </table>
+
+    <div class="col-xs-2"></div>
+    <div class="col-xs-2"><a href="/hitts/msp/write" class="btn btn-default">작성하기</a>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="<%= paginate.href(true) %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        <% pages.forEach(function(page){ %>
+            <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+                <a href="<%= page.url %>"><%= page.number %></a>
+            </li>
+        <%})%>
+
+        <%if(paginate.hasNextPages(pageCount)){%>
+            <li>
+                <a href="<%= paginate.href() %>">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <%}%>
+        </ul>
+    </nav>
+</div>
+</div>
+
+<% include ../footer.ejs %>

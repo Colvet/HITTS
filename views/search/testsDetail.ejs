@@ -1,0 +1,60 @@
+<% include ../header.ejs %>
+    
+<% include ./searchsidebar.ejs%>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <table id="testDetail">
+            <div style="padding-bottom: 10px">
+            <tr>
+                <th id="testDetailTopic">자료명</th>
+                 <td colspan="7" id="testDetailContent"><%=history.title%></td>
+                 </tr>
+            </div> 
+            <div style="padding-bottom: 10px">
+                <tr>
+                <th id="testDetailTopic">연도</th>
+                <td id="testDetailContent"><%=history.year%></td>
+                <th id="testDetailTopic">작성일</th>
+                <td id="testDetailContent">
+                <%=history.getDate.year%>. <%=history.getDate.month%>. <%=history.getDate.day%>
+                </td>
+                <th id="testDetailTopic">중간/기말</th>
+                <td id="testDetailContent"><%=history.term%></td>
+                
+                </tr>
+                
+            </div> 
+
+            <div style="padding-bottom: 10px">
+                <tr>
+                <th id="testDetailTopic">파일</th> 
+                <td><% if(history.record){%>
+                <a href="/hitts/uploads/<%=history.record%>" /> <%=history.record%> </a>
+                </td>
+                </tr>
+            </div>
+            <% } %>
+
+            <div style="padding-bottom: 10px">
+                <tr id="testDetailDescription">
+                    <td colspan="8">
+                        <%-history.description%>
+                    </td>
+                </tr>
+            </div>
+            </table>
+
+        <a href="javascript:history.back()" class="btn btn-default">목록으로</a>
+        <a href="/hitts/search/tests/edit/<%=history.id%>" class="btn btn-primary">수정</a>
+</div>
+
+
+    
+
+        
+
+
+<% include ../footer.ejs %>

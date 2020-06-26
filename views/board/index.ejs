@@ -1,0 +1,68 @@
+<% include ../header.ejs %>
+<link rel="stylesheet" type="text/css" href="../../stylesheet/tests.css">
+<% include ./sidebar.ejs %>
+    
+<div class="main">
+    <h1> Board </h1>
+    <table class="table table-bordered table-hover" style="max-width:70%;">
+        <tr>
+            <th>자료명</th>
+            <th>설명</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+        
+
+        <% boards.forEach( function(board){ %>
+
+        <tr>
+            <td>
+                <a href="/hitts/board/detail/<%=board.id%>"><%=board.title%></a>
+            </td>
+            <td>
+                <%-board.description%>
+            </td>
+            <td>
+                <%=board.writer%>
+            </td>
+            <td>
+                <%=board.getDate.year%> -
+                <%=board.getDate.month%> -
+                <%=board.getDate.day%> 
+            </td>
+            <% if(board.write_num == req.user.username || req.user.pro == true) { %>
+            <td>
+                <a href="/hitts/board/delete/<%=board.id%> " class="btn btn-danger" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>
+            </td>
+            <% } %>
+        </tr>
+        <%});%>
+    </table>
+
+    <div class="col-xs-2"></div>
+    <div class="col-xs-2"><a href="/hitts/board/write" class="btn btn-default">작성하기</a>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a href="<%= paginate.href(true) %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        <% pages.forEach(function(page){ %>
+            <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+                <a href="<%= page.url %>"><%= page.number %></a>
+            </li>
+        <%})%>
+
+        <%if(paginate.hasNextPages(pageCount)){%>
+            <li>
+                <a href="<%= paginate.href() %>">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <%}%>
+        </ul>
+    </nav>
+</div>
+</div>
+<% include ../footer.ejs %>

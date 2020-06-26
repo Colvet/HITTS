@@ -1,0 +1,51 @@
+<% include ../header.ejs %>
+<link rel="stylesheet" type="text/css" href="../stylesheet/tests.css">
+
+<% include ./sidebar.ejs%>
+<div class="main">
+
+<table class="table table-bordered table-hover" style="width:80%; margin:10px;">
+<tr>
+    <th>팀명</th>
+    <th width="60%">주제</th>
+    <th>분야</th>
+    <th>지도교수</th>
+    <th>결과</th>
+</tr>
+<% cap.forEach( function(cap){ %>
+<tr>
+    <td>
+        <%=cap.team_name%>
+    </td>
+    <td>
+    <a href="/hitts/cap/index/detail/<%=cap.id%>"> <%=cap.theme%> </a>
+    </td>
+    <td>
+        <%=cap.category%>
+    </td>
+    <td>
+        <%=cap.professional%>
+    </td>
+    <td >
+        <%=cap.result%>
+    </td>
+    <% if(cap.writer_num == req.user.username || req.user.pro == true) { %>
+    <td>
+        <a href="/hitts/cap/index/delete/<%=cap.id%> " class="btn btn-danger btn-xs" style="height:auto;" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>
+    </td>
+    <% } %>
+    
+</tr>
+<%});%>
+
+</table>
+
+<div class="col-xs-2" style="max-width:1px;"></div>
+<div class="col-xs-2" style="float:right; max-width:400px;">
+<a href="/hitts/cap/write/<%=req.params.year%>" class="btn btn-primary">작성하기</a>
+
+</div>
+</div><!--container-->
+
+</div>
+<% include ../footer.ejs %>

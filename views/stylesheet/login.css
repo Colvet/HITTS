@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 body {
-  background-color: #1a8fb4;
-  font-family: 'Roboto', sans-serif;
+  background-image: url(../image/login_bg_blr30.png);
+  background-size:cover;
+  font-family: 'Verdana';
   font-size: 14px;
 }
 .owl {
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
   width: 211px;
   height: 108px;
   background-image: url("https://dash.readme.io/img/owl-login.png");
@@ -60,26 +61,76 @@ body {
   transform: translateX(-40px) translateY(-40px) scaleX(-1);
 }
 .form {
-  margin: auto;
+  margin: 10px;
   margin-top: -9px;
   padding: 50px;
-  background-color: #fff;
+  background-color: #dadad3;
   width: 175px;
+  border-radius: 5px;
 }
 .form .control {
   margin-bottom: 10px;
   position: relative;
+  left:-10%;
+  
 }
 .form .control label {
   position: absolute;
   font-size: 16px;
   top: 11px;
-  left: 9px;
+  left: 5px;
   color: rgba(0,0,0,0.3);
 }
 .form .control input {
-  padding: 9px 6px 9px 30px;
+  padding: 9px 9px 9px 30px;
   border-radius: 4px;
   border: 1px solid #ccc;
   font-size: 14px;
+}
+.btn{
+  background-color:rgba(0,45,86);
+  color:#fff;
+  border:none;
+  position:relative;
+  height:40px;
+  font-size:1.2em;
+  margin-top:10px;
+  padding:0 1em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.btn:hover{
+  background-color:rgba(157,159,162,250)
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+btn:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+btn:hover:before,btn:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+.i{
+  height:16px;
+  width:16px;
+}
+.topimg{
+  margin-top: 0px;
+  padding:5px;
+  color:#fff;
+  font-size:90px;
+  font-family: 'Lato', sans-serif;
 }

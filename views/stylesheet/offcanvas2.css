@@ -1,0 +1,391 @@
+body { margin: 0; } 
+div#slider { overflow: hidden; }
+div#slider figure img { width: 20%; float: left; }
+div#slider figure { 
+position: relative;
+width: 1111%;
+height: 10;
+margin: 0;
+top:0;
+left: 0;
+text-align: left;
+font-size: 0;
+-webkit-animation: 20s slidy ease-in-out infinite;
+animation: 20s slidy ease-in-out infinite; 
+}
+
+
+#StudyP {
+  border-color:#342FC7;
+}
+#SRPanel {
+  border-color:#FFCD12;
+}
+#TPpanel {
+  border-color:#00B700;
+}
+#ARCpanel{
+  border-color:#FF7012;
+}
+
+#StudyPanelH {
+  background-color:#342FC7;
+    border-color:#342FC7;
+ }
+
+#SRPanelH {
+  background-color:#FFCD12;
+  border-color:#FFCD12;
+ }
+#TPpanelH{
+  background-color:#00B700;
+  border-color:#00B700;
+}
+#ARCpanelH{
+  background-color:#FF7012;
+  border-color:#FF7012;
+}
+#testDetail{
+  float:right;
+  margin:10px;
+  width:100%;
+  border-top:2px solid #000
+}
+#testDetailTopic {
+  height:28px;
+  margin:0;
+  border-bottom:1px solid #dadada;
+  padding:8px;
+  text-align:center;
+  font-size:12px;
+  background-color:#97b6ff
+}
+#testDetailContent{
+  padding-left:8px;
+  border-bottom:1px solid #dadada;
+  padding-right:8px;
+}
+#testDetailDescription{
+  padding: 15px 15px 30px 14px;
+  margin:10px;
+  border-bottom: 2px solid #040404
+}
+#period{
+  background-color:rgb(179, 131, 44)
+}
+#book{
+  width:700px;
+  margin:10px;
+  margin-bottom:5px;
+  background-color:rgb(104, 104, 104);
+  text-align:center;
+  color:#fff;
+  border-spacing:50px;
+}
+#roomtype{
+  background-color:rgb(3, 34, 119);
+}
+#booktitle{
+  position:relative;
+  left:30px;
+  margin-bottom:20px;
+
+}
+#status{
+  position:relative;
+  text-align: left;
+
+}
+#booksidebar{
+  padding: 20px;
+  -webkit-padding-start: 20px;
+}
+
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+/* Button styling */
+.menu-toggle {
+  display: inline-block;
+  padding: .75em 15px;
+  line-height: 1em;
+  font-size: 1em;
+  color: #333;
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus {
+  color: #c00;
+}
+
+/*
+ Default styles + Mobile first
+ Offscreen menu style
+*/
+.main-menu {
+  position: absolute;
+  left: -200px;
+  top: 0;
+  height: 100%;
+	overflow-y: scroll;
+	overflow-x: visible;
+	transition: left 0.3s ease,
+				      box-shadow 0.3s ease;
+	z-index: 999;
+}
+
+.main-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 2.5em 0 0;
+  /* Hide shadow w/ -8px while 'closed' */
+  -webkit-box-shadow: -8px 0 8px rgba(0,0,0,.5);
+     -moz-box-shadow: -8px 0 8px rgba(0,0,0,.5);
+          box-shadow: -8px 0 8px rgba(0,0,0,.5);
+  min-height: 100%;
+  width: 200px;
+  background: #1a1a1a;
+}
+
+.main-menu a {
+  display: block;
+  padding: .75em 15px;
+  line-height: 1em;
+  font-size: 1em;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid #383838;
+}
+
+.main-menu li:first-child a {
+  border-top: 1px solid #383838;
+}
+
+.main-menu a:hover,
+.main-menu a:focus {
+  background: #333;
+  text-decoration: underline;
+}
+
+.main-menu .menu-close {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/*
+ On small devices, allow it to toggle...
+*/
+/*
+ :target for non-JavaScript
+ aria-expanded="true/false" will be for JavaScript
+*/
+.main-menu:target,
+.main-menu[aria-expanded="true"] {
+  left: 0;
+  outline: none;
+  -moz-box-shadow: 3px 0 12px rgba(0,0,0,.25);
+  -webkit-box-shadow: 3px 0 12px rgba(0,0,0,.25);
+  box-shadow: 3px 0 12px rgba(0,0,0,.25);
+}
+
+.main-menu:target .menu-close,
+.main-menu[aria-expanded="true"] .menu-close {
+  z-index: 1001;
+}
+
+.main-menu:target ul,
+.main-menu[aria-expanded="true"] ul {
+  position: relative;
+  z-index: 1000;
+}
+
+/* 
+ We could us `.main-menu:target:after`, but
+ it wouldn't be clickable.
+*/
+.main-menu:target + .backdrop,
+.main-menu[aria-expanded="true"] + .backdrop {
+  position: absolute;
+  display: block;  
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+  background: #000;
+  background: rgba(0,0,0,.85);
+  cursor: default;
+}
+
+@supports (position: fixed) {
+  .main-menu,
+  .main-menu:target + .backdrop,
+  .main-menu[aria-expanded="true"] + .backdrop {
+    position: fixed;
+  }
+}
+
+/*
+ Larger screen styling
+ Horizontal menu
+*/
+@media (min-width: 768px) {
+  .menu-toggle,
+  .main-menu .menu-close {
+    display: none;
+  }
+  
+  /* Undo positioning of off-canvas menu */
+  .main-menu {
+    position: relative;
+		left: auto;
+		top: auto;
+		height: auto;
+  }
+  
+  .main-menu ul {
+    display: flex;
+    
+    /* Undo off-canvas styling */
+    padding: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+    height: auto;
+    width: auto;
+    background: none;
+  }
+  
+  .main-menu a {
+    color: #06c;
+    border: 0 !important; /* Remove borders from off-canvas styling */
+  }
+  
+  .main-menu a:hover,
+  .main-menu a:focus {
+    background: none; /* Remove background from off-canvas styling */
+    color: #c00;
+  
+}
+
+  .col-xs-6{
+    float:right;
+  }
+
+
+@keyframes slidy {
+  0% { left: 0%; }
+  20% { left: 0%; }
+  25% { left: -100%; }
+  45% { left: -100%; }
+  50% { left: -200%; }
+  70% { left: -200%; }
+  75% { left: -300%; }
+  95% { left: -300%; }
+  100% { left: -400%; }
+  }
+  
+
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+header {
+  padding: 20px;
+  display: flex;
+  align-items: baseline;
+}
+
+article {
+  padding: 30px;
+  width: 55em;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+
+article h2 {
+  font-weight: 500;
+  font-size: 28px;
+}
+
+.logo {
+  margin: 0 30px 0 10px;
+  font-size: 1.5em;
+}
+
+/* 예전꺼*/
+.container{
+  background-color:rgba(218,218,211,147);
+}
+
+
+
+  .ri{
+    font-size:22px;
+    margin-bottom:5%;
+  }
+  .ellipsis {
+    width:100%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   }
+     .ellipsis2 {
+  height:100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+   }
+
+   @keyframes slidy {
+0% { left: 0%; }
+20% { left: 0%; }
+25% { left: -100%; }
+45% { left: -100%; }
+50% { left: -200%; }
+70% { left: -200%; }
+75% { left: -300%; }
+95% { left: -300%; }
+100% { right: 400%; }
+}
+
+body { margin: 0; } 
+div#slider { overflow: hidden; }
+div#slider figure img { width: 20%; position:auto; }
+div#slider figure { 
+margin-left:0%;
+margin-right:0%;
+position: relative;
+width: 500%;
+margin-bottom: 10px;
+top:0;
+left: 0;
+text-align: left;
+font-size: 0;
+-webkit-animation: 20s slidy ease-in-out infinite;
+animation: 20s slidy ease-in-out infinite; 
+}
+
+
+}

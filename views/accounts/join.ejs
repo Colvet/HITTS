@@ -1,42 +1,52 @@
 <head>
 
-    <link rel="stylesheet" type="text/css" href="../stylesheet/join.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheet/join.css">
     <script
       src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
       crossorigin="anonymous"></script>
-<body>
 </head>
+
+<body>
 <section class="container">
 		    <article class="half">
 			        <h1>HITTS</h1>
 			        <div class="tabs">
-				            <span class="tab sigin active"><a href="#signup">Sign up</a></span>
+				            <span class="tab sigin active"><a href="#signup">회원가입</a></span>
 			        </div>
 			        <div class="content">
  				        <div class="signin-cont cont">
                             <form role="form" action="" method="post" id="join_form" >
-                                <input type="text" name="username" class="inpt" required="" 
-                                placeholder="Your ID">
+                                <input  type="text" name="username" class="inpt" required="" 
+                                placeholder="학번">
                     
-                                <!--input type="email" name="email" id="email" class="inpt" required="" 
-                                placeholder="Your email"-->
-                        
-                                <input type="password" name="password" class="inpt" required="" 
+                                <input  type="password" name="password" class="inpt" required="" 
                                 placeholder="Your password">
 
-                                <input type="password" name="password2" class="inpt" required="" 
+                                <input  type="password" name="password2" class="inpt" required="" 
                                 placeholder="Your password Check">
-                        
+
+                                <input  type="text" name="stu_name" class="inpt" required="" 
+                                placeholder="이름">
+
+                                <input  type="e-mail" name="email" class="inpt" required="" 
+                                placeholder="e-mail">
+
+                                <input type="Radio" name="sex" Value="0" required ="">Male
+                                <input type="Radio" name="sex" Value="1">Female
+
                                 <div class="submit-wrap">
-                                    <input type="submit" value="Sign up" class="submit">
-                                    <a href="#" class="more">Terms and conditions</a>
+                                    <input type="submit" value="가입하기" class="submit">
+                                    <a href="#" class="more">약관 및 개인정보이용계획</a>
                                 </div>
                             </form>
                         </div>
 			        </div>
 		    </article>
-		<div class="half bg"></div>
+		<div class="half bg">
+        <img src="../../image/logo_N.gif" style="width:300px; height:300px; position:relative;left:-5%;">
+        
+        </div>
 </section>
 </body>
 <script>
@@ -44,27 +54,10 @@
 (function(){
     $(document).ready(function() {
         $('#join_form').submit(function(){
-            var $usernameInput = $('#join_form input[name=username]');
             var $passwordInput = $('#join_form input[name=password]');
             var $passwordInput2 = $('#join_form input[name=password2]');
-            var $displayname = $('#join_form input[name=displayname]');
 
-            if(!$usernameInput.val()){
-                alert("아이디를 입력해주세요.");
-                $usernameInput.focus();
-                return false;
-            }
-            if(!$passwordInput.val()){
-                alert("패스워드를 입력해주세요.");
-                $passwordInput.focus();
-                return false;
-            }
-            if(!$passwordInput2.val()){
-                alert("확인 패스워드를 입력해주세요.");
-                $passwordInput2.focus();
-                return false;
-            }
-            
+                       
             if($passwordInput.val() !== $passwordInput2.val()){
                 alert("패스워드와 확인용패스워드를 똑같이 입력해주세요.");
                 return false;

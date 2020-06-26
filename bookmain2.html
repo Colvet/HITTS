@@ -1,0 +1,441 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!--이미지슬라이더-->
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+
+    <title>HITTS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas2.css" rel="stylesheet">
+
+    <!--내비바 만드는거-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../views/stylesheet/offcanvas2.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="Generator" content="EditPlus®">
+    <!--사이드바-->
+    <link rel="stylesheet" type="text/css" href="../semantic/semantic.css">
+    <script src="semantic/semantic.js"></script>
+
+
+
+    <style>
+      [name=bookbtn]{
+        background: #d6d6d6;
+        background-image: -webkit-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -moz-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -ms-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: -o-linear-gradient(top, #d6d6d6, #b5b5b5);
+        background-image: linear-gradient(to bottom, #d6d6d6, #b5b5b5);
+        -webkit-border-radius: 28;
+        -moz-border-radius: 28;
+        border-radius: 28px;
+        font-family: Arial;
+        color: #000000;
+        font-size: 20px;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+      }
+      #modal{
+        display:none;
+        background-color:#FFFFFF;
+        position:absolute;
+        top:300px;
+        left:200px;
+        padding:10px;
+        border:2px solid #E2E2E2;
+        z-Index:9999;
+      }
+        #cnfmbtn {
+          -moz-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          -webkit-box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          box-shadow:inset 0px 1px 0px 0px #97c4fe;
+          background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #3d94f6), color-stop(1, #1e62d0) );
+          background:-moz-linear-gradient( center top, #3d94f6 5%, #1e62d0 100% );
+          filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#3d94f6', endColorstr='#1e62d0');
+          background-color:#3d94f6;
+          -webkit-border-top-left-radius:42px;
+          -moz-border-radius-topleft:42px;
+          border-top-left-radius:42px;
+          -webkit-border-top-right-radius:42px;
+          -moz-border-radius-topright:42px;
+          border-top-right-radius:42px;
+          -webkit-border-bottom-right-radius:42px;
+          -moz-border-radius-bottomright:42px;
+          border-bottom-right-radius:42px;
+          -webkit-border-bottom-left-radius:42px;
+          -moz-border-radius-bottomleft:42px;
+          border-bottom-left-radius:42px;
+          text-indent:0;
+          border:1px solid #337fed;
+          display:inline-block;
+          color:#ffffff;
+          font-family:Arial;
+          font-size:15px;
+          font-weight:bold;
+          font-style:normal;
+          height:46px;
+          line-height:46px;
+          width:150px;
+          text-decoration:none;
+          text-align:center;
+          text-shadow:1px 1px 0px #1570cd;
+          position:center;
+        }
+        #cnfmbtn:hover {
+          background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1e62d0), color-stop(1, #3d94f6) );
+          background:-moz-linear-gradient( center top, #1e62d0 5%, #3d94f6 100% );
+          filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e62d0', endColorstr='#3d94f6');
+          background-color:#1e62d0;
+        }
+        #cnfmbtn:active {
+          position:relative;
+          top:1px;
+        }
+      input[type=radio], input[type=checkbox] {
+        display:none;
+      }
+      td{
+        height: 35px;
+        padding:3px;
+      }
+    
+    input[type=radio] + label, input[type=checkbox] + label {
+        width:70px;
+        height: 28px;
+        display:inline-block;
+        margin:-2px;
+        padding: 4px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: #333;
+        text-align: center;
+        text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+        vertical-align: middle;
+        cursor: pointer;
+        background-color: #f5f5f5;
+        background-image: -moz-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#e6e6e6));
+        background-image: -webkit-linear-gradient(top,#fff,#e6e6e6);
+        background-image: -o-linear-gradient(top,#fff,#e6e6e6);
+        background-image: linear-gradient(to bottom,#fff,#e6e6e6);
+        background-repeat: repeat-x;
+        -webkit-border-top-left-radius:12px;
+        -moz-border-radius-topleft:12px;
+        border-top-left-radius:12px;
+        -webkit-border-top-right-radius:12px;
+        -moz-border-radius-topright:12px;
+        border-top-right-radius:12px;
+        -webkit-border-bottom-right-radius:12px;
+        -moz-border-radius-bottomright:12px;
+        border-bottom-right-radius:12px;
+        -webkit-border-bottom-left-radius:12px;
+        -moz-border-radius-bottomleft:12px;
+        border-bottom-left-radius:12px;
+        border: 1px solid #ccc;
+        border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+        border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+        border-bottom-color: #b3b3b3;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',endColorstr='#ffe6e6e6',GradientType=0);
+        filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+        -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+      }
+    
+       input[type=radio]:checked + label, input[type=checkbox]:checked + label{
+         width:70px;
+         height: 28px;
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+        background-color:#e3f307;
+      }
+      #ltitlke{
+        margin-left:20px;
+        text-align:center;
+        background-color:#97c4fe;
+      }
+
+
+      #ltitle { 
+        FONT-SIZE: 22px; 
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+        COLOR: #2E86B9; 
+        PADDING-BOTTOM: 10px;
+        POSITION:relative;
+        left:5%;
+        padding: 3px 5px; 
+        margin: 5px 0; 
+        BACKGROUND-COLOR: #FFF;
+        z-index:-90;
+      } 
+    </style>
+
+</head>
+
+<body>
+
+
+
+<nav class="navbar navbar-inverse" style="background-color:rgba(0,45,86,147); color:#fff ">
+  <div class="container-fluid">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/admin/index">HITTS</a>
+    </div>
+  
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/admin/index">Home</a></li>
+        <li><a href="/search/tests">자료 검색</a></li>
+        <li><a href="/538/index">538 예약</a></li>
+
+        <li><a href="/matching/index">팀구성</a></li>
+
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">학과게시판<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/board">학과공지</a></li>
+            <li><a href="/bscm">BSCM</a></li>
+            <li><a href="/cpim">CPIM</a></li>
+            <li><a href="/msp">MSP</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings" style="background-color:#000; color:#fff; padding:10px;">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <img src="assets/img/64-64.jpg" alt="" class="img-rounded" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h5>환영합니다.</h5>
+
+                                    </div>
+                                </div>
+                                <a href="/accounts/lecture/now" class="btn btn-info btn-xs" style="margin-bottom:5px;">마이페이지</a>&nbsp; <a class="btn btn-danger btn-xs"  href="/accounts/logout" onclick="return confirm('로그아웃 하시겠습니까?')" >로그아웃</a>
+
+                            </div>
+                        </li>
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+<!-- 여기까지가 원래 해더-->
+<div class="row">
+  <div id="booktitle">
+    <h1>538 스터디룸 예약</h1>
+  </div>
+  </div>
+<!--여기부터 원래 사이드바-->
+
+<div class="col-sm-2" style="max-width:250px;min-width:160px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">메뉴</div>
+        <div class="panel-body" style="padding:5px;">
+            <ul id="booksidebar">
+                <li><a href="./bookmain2.html">예약 하기</a></li>
+                <li><a href="./bookcnl.html">예약 취소</a></li>
+                <li><button id="rules">이용안내</button></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<!-- 여기까지가 사이드바 들어가는거-->
+
+
+
+<div class="row">
+    <div id="ltitle"sytle="margin:20px;">
+        <div class="time" style="position:relative">
+          <script> 
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+      
+            if(dd<10) {
+                dd='0'+dd
+            } 
+      
+            if(mm<10) {
+                mm='0'+mm
+            } 
+      
+            today = yyyy+'년'+mm+'월'+dd+'일';
+            document.write(today) 
+          </script>
+          <a>스터디룸 예약 현황</a> 
+        </div>
+        </div>
+      
+  <div class="col-lg-2">
+    <div>
+    <table id="book">
+      <tr id="roomtype" style="background-color:rgb(3, 34, 119)">
+        <td> </td>
+        <script>
+            for(j=1;j<5;j++){
+              document.write("<td><h3>스터디룸"+j+"</h3></td>")
+            }
+            
+          </script>
+        </tr>
+        <script>
+          for(i=1;i<13;i++){
+            document.write("<tr>");
+            document.write("<td id='period'>"+i+"교시</td>");
+            for(j=1;j<5;j++){
+              document.write("<td>")
+              document.write("<input type='checkbox' class='btn btn-default' name='bookbtn' id='bookbtn"+j+i+"' value='스터디룸"+j+"/"+i+"교시'onclick='count_ck(this)'>")
+              document.write("<label for='bookbtn"+j+i+"'>"+i+"교시</label>")
+              document.write("</td>")
+            }
+            document.write("</tr>")
+            
+          }   
+          //체크 갯수 제한 2개만 체크되게 하기
+          function count_ck(obj){
+
+	          var chkbox = document.getElementsByName("bookbtn");
+	          var chkCnt = 0;
+
+	          for(var i=0;i<chkbox.length; i++){
+		          if(chkbox[i].checked){
+			          chkCnt++;
+		          }
+	          }
+	              if(chkCnt>2){
+		              alert("스터디룸은 1인 1일 최대 2시간 까지만 예약이 가능합니다.");
+		              obj.checked = false;
+		              return false;
+	              }
+            }
+          function getValue(){
+            //이름을 이용해서 check의 크기를 알아내기
+            console.log(document.getElementsByName("bookbtn").length);
+        
+
+            /*check를 가진 값의 이름을 가져오기
+            var size = document.getElementsByName("bookbtn").length;
+            for(var h = 0; h < size; h++){
+                console.log(document.getElementsByName("bookbtn")[h].value);
+            }*/
+         
+            //check이름을 가진 check중에서 체크된 것만 값 가져오기
+            var size = document.getElementsByName("bookbtn").length;
+            var ct = 0;
+            for(var h = 0; h < size; h++){
+                if(document.getElementsByName("bookbtn")[h].checked == true){
+                    //console.log(document.getElementsByName("bookbtn")[h].value+"(체크)");
+                    alert(document.getElementsByName("bookbtn")[h].value);
+                    ct = ct+1
+                }
+
+              }
+              if(ct ==0){
+                alert('예약할 스터디룸의 시간을 선택해 주세요')
+              }
+            //가져온 값을 자식창에 던져주기. 
+
+
+            }
+
+        </script>
+        
+      <td style="font-size:8px;" id="period"> </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+      <td style="font-size:8px;">' </td>
+      
+    </tr>
+
+
+    </table>
+    <center><input type='button' id='cnfmbtn' onclick="getValue(); location.href=('./booking.html')" value='예약하기'/></center>
+  </div>
+  </div>
+</div>
+
+
+
+
+<!-- 모달 창을 여는 버튼 
+<button id="button">Open Modal</button>-->
+
+<div id="modal">
+  <h3>538 스터디룸 이용 수칙</h3>
+  <p>스터디룸은 1인 최대 2시간 이용 가능합니다.</p>
+  <p>사용시 깨끗하게 사용하여 주세요.</p>
+  <p>기타등등</p>
+  <button id="confirm_button">숙지하였습니다.</button>
+  <!--<button class="js_close">닫기</button>-->
+</div>
+
+<!-- 스크립트 영역 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="./Example.Modal.js"></script>
+<script type="text/javascript">
+// 모달창 인스턴트 생성
+var myModal = new Example.Modal({
+    id: "modal" // 모달창 아이디 지정
+});
+$("#rules").click(function() {
+  myModal.show(); // 모달창 보여주기
+});
+// 모달 창 안에 있는 확인 버튼에 이벤트 걸기
+$("#confirm_button").click(function() {
+    alert("꼭 지켜주세요 :)");
+    myModal.hide(); // 모달창 감추기
+});
+
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+
+if(dd<10) {
+    dd='0'+dd
+} 
+
+if(mm<10) {
+    mm='0'+mm
+} 
+
+today = mm+'/'+dd+'/'+yyyy;
+//document.write(today);
+</script>
+
+
+    </body>
+
+</html>

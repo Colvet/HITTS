@@ -1,0 +1,99 @@
+<% include ../header.ejs %>
+
+<% include ./sidebar.ejs %>
+
+<div class="main">
+<table>
+
+<% for(var k=0; k< user.length ; k++){ %>
+<% if(my.username != user[k].username) { %>
+
+  <td style="padding: 10px;">
+    <canvas id="marksChart[<%=k%>]" width="600" height="400"></canvas>
+  </td>
+
+<% } %>
+<% if ((k+1)%2 == 0 ) { %>
+<tr>
+</tr>
+
+<% }}%>
+  
+</table>
+  <nav>
+    <ul class="pagination">
+      <li>
+          <a href="<%= paginate.href(true) %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+          </a>
+      </li>
+    <% pages.forEach(function(page){ %>
+        <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+            <a href="<%= page.url %>"><%= page.number %></a>
+        </li>
+    <%})%>
+
+    <%if(paginate.hasNextPages(pageCount)){%>
+        <li>
+            <a href="<%= paginate.href() %>">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    <%}%>
+    </ul>
+  </nav>
+<div>
+  
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+<script>
+<% for (var i = 0; i < user.length ; i ++ ){ %>
+<% if(my.username != user[i].username) { %>
+  var marksCanvas = document.getElementById("marksChart[<%=i%>]");
+  var marksData = {
+    labels: ["Operation", "Logistics","Analysis", "Info", "Quality","Data"],
+    datasets: [{
+      label: "본인",
+      backgroundColor: "rgba(0,0,200,0.2)",
+      data: [<%=my.score%>]
+    },{
+      label: "<%=user[i].stu_name%>",
+      backgroundColor: "rgba(200,0,0,0.2)",
+      data: [<%=user[i].score%>]
+    }]
+  };
+  var chartOptions = {
+    scale: {
+      ticks: {
+        beginAtZero: false,
+        min: -3,
+        max: 3,
+        stepSize: 1,
+      },
+      pointLabels: {
+        fontSize: 18
+      }
+    },
+    legend: {
+      position: 'left'
+    }
+  };
+  
+  var radarChart = new Chart(marksCanvas, {
+    type: 'radar',
+    data: marksData,
+    options : chartOptions
+  });
+<%}}%>
+</script>
+
+
+<% include ../footer.ejs %>

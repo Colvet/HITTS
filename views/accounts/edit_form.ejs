@@ -1,0 +1,130 @@
+<% include ../header.ejs %>
+
+<% include ./sidebar.ejs %>
+<div class="main">
+<form role="form" action="" method="post" id = "edit_form" >
+
+        <table class="table table-bordered" style="max-width:50%;">
+            <div class="form-group">
+                <tr>
+                <th>회원 아이디</th>
+                   <td> <%=user.username%> </td> 
+                </tr>
+            </div>
+
+            <div class="form-group">
+                <tr>
+                <th>이름</th>
+                    <td><input class="form-control" type="text" name="stu_name" required=""  value ="<%=user.stu_name%>"/> </td>
+                </tr>
+            </div>
+
+            <div class="form-group">
+                <tr>
+                <th>E-Mail</th>
+                    <td><input class="form-control" type="text" name="email" required=""  value ="<%=user.email%>"/> </td>
+                </tr>
+            </div>
+
+            <div class="form-group">
+                <tr>
+                <th>성별</th>
+                <%if(user.sex=="0") { %>
+                <td>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" required="" value="0" checked>남자
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="1">여자
+                    </label>
+                </td>
+                <% } else { %>
+                <td>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" required="" value="0">남자
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" value="1" checked>여자
+                    </label>
+                </td>
+                <% } %>
+                </tr>
+            </div>
+
+            <div class="form-group">
+                <tr>
+                <th>캡스톤 디자인프로젝트</th>
+                <% if(user.cap==false) { %>
+                <td>
+                    <label class="radio-inline">
+                        <input type="radio" name="cap" value="1"> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="cap" required="" value="0" checked> No
+                    </label>
+                </td>
+                <% } else { %>
+                <td>
+                    <label class="radio-inline">
+                        <input type="radio" name="cap" value="1" checked> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="cap" required="" value="0"> No
+                    </label>
+                </td>
+                <% } %>
+                </tr>
+            </div>
+
+
+            <div class="form-group">
+                <tr>
+                <th>비밀번호</th>
+                    <td><input class="form-control" type="password" name="password" autofocus ="" value="" required=""></td>
+                    
+                </tr>
+            </div>
+
+            <div class="form-group">
+                <tr>
+                <th>비밀번호 확인</th>
+                  <td><input class="form-control" type="password" name="password2"  value="" required=""  /></td>
+                </tr>
+            </div>
+            
+            <tr>
+                <th> 공지 사항</th>
+                <td style="text-align:center;"> HITTS의 비밀번호 </td>
+            </br>
+            
+        </table>
+
+        <button class="btn btn-primary"> 변경하기</a>
+    </form>
+
+</div>
+</div>
+<script >
+
+(function(){
+    $(document).ready(function() {
+        $('#edit_form').submit(function(){
+            var $passwordInput = $('#edit_form input[name=password]');
+            var $passwordInput2 = $('#edit_form input[name=password2]');
+
+            
+            
+            if($passwordInput.val() !== $passwordInput2.val()){
+                alert("패스워드와 확인용패스워드를 똑같이 입력해주세요.");
+                return false;
+            }
+            return true;
+        });
+    });
+})();
+
+
+
+</script>
+<% include ../footer.ejs %>
+

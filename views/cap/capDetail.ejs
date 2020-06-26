@@ -1,0 +1,376 @@
+<% include ../header.ejs %>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<% include ./sidebar.ejs%>
+<div class="main">
+
+
+
+<div class="w3-container">
+
+  <div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button tablink w3-green" onclick="openCity(event,'London')">프로젝트 정보</button>
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Paris')"> 프로젝트 결과물 </button>
+    <button class="w3-bar-item w3-button tablink" onclick="openCity(event,'Tokyo')">회의록</button>
+  </div>
+  
+  <div id="London" class="w3-container w3-border city">
+    <table class="table table-bordered">
+    <tr>
+        <th>팀명</th>
+        <td> <%=capstone.team_name %></td>
+    </tr>
+    
+    <tr>
+        <th> PM </th>
+        <td> <%=capstone.writer%></td>
+    </tr>
+
+    <tr>
+        <th> 팀원 </th>
+        <td>
+        <% if(team != null){ %>
+            <% for( var i = 0; i < team.member.length ; i++ ) { %>
+                <% if(capstone.writer != team.member[i].stu_name) { %>
+                    <%=team.member[i].stu_name%>
+            <% }} %>
+            <% } %>
+        </td>
+    </tr>
+
+    <tr>
+        <th>주제</th>
+        <td> <%=capstone.theme%> </td>
+    </tr>
+    <tr>
+        <th>분야</th>
+        <td> <%=capstone.category%> </td>
+                
+    </tr>
+    <tr>
+        <th>지도교수</th>
+        <td> <%=capstone.professional%> </td>
+    </tr>
+    <tr>
+    <% if(capstone.writer_num == req.user.username) { %>
+        <th>결과</th>
+        <% if(capstone.result == "Pass") { %>
+        <td><select type="input" name="result"  id= "result" class="form-control" style ="width:40%"/>
+                <option value="">선택하세요</option>
+                <option value ="Pass" selected = "">Pass</option>
+                <option value ="Fail">Fail</option>
+            </select>
+            
+        <% }else if(capstone.result =="Fail") { %>
+        <td><select type="input" name="result"  id= "result" class="form-control" style ="width:40%"/>
+                <option value="">선택하세요</option>
+                <option value ="Pass" >Pass</option>
+                <option value ="Fail" selected = "">Fail</option>
+            </select>
+        <% } else { %>
+        <td><select type="input" name="result"  id= "result" class="form-control" style ="width:40%"/>
+        <option value=""  selected = "">선택하세요</option>
+        <option value ="Pass" >Pass</option>
+        <option value ="Fail">Fail</option>
+        </select>
+        <% } %>
+        <button type = "button" class="btn btn-primary"  id = "result_save" num="<%=req.params.id%>" >저장 </button> </td>
+        
+                
+    <% } else { %>
+    <th> 결과 </th>
+    <td> <%=capstone.result%></td>  
+        <% } %>
+    </tr>
+    
+    
+  </table>
+</div>
+
+
+
+<div id="Paris" class="w3-container w3-border city" style="display:none">
+    <table class="table table-bordered table-hover" style="width:80%; margin:10px;">
+    <tr>
+        <th>목차</th>
+        <th>파일</th>
+        </tr>
+    <% cap_file.forEach( function(cap_file){ %>
+        <tr>
+        <td>
+            <%=cap_file.class%>
+        </td>
+        
+        <% if(cap_file.record){%>
+        <td>
+                    <a href="/hitts/cap_uploads/<%=cap_file.record%>" /> <%=cap_file.record%> </a>
+        </td>
+        <% } %>
+        <% if(req.user.username == cap_file.writer_num || req.user.pro == true){ %>
+            <td>
+                <a href="/hitts/cap/index/file/delete/<%=cap_file.id%> " class="btn btn-danger btn-xs" style="height:auto;" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>    
+            </td>
+        <% }%>
+        </tr>
+    <%});%>
+  
+    </table>
+    <% if(capstone.writer_num == req.user.username) { %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">작성하기</button>
+    <% } %>
+
+  <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">작성하기</h4>
+            </div>
+            <div class="modal-body">
+            <form action="" method="post" enctype="multipart/form-data" id="upload">
+                <table class="table table-bordered">
+                <tr>
+                <th>분야</th>
+                <td><select type="input" id="class" class="form-control" required="" value="<%=cap_file.title%>" />
+                        <option value="">선택하세요</option>
+                        <option value ="제안발표">제안발표</option>
+                        <option value ="중간발표">중간발표</option>
+                        <option value ="최종발표">최종발표</option>
+                        <option value ="제안보고서">제안보고서</option>
+                        <option value ="중간보고서">중간보고서</option>
+                        <option value ="최종보고서">최종보고서</option>
+                        <option value ="소스코드">소스코드</option>
+                        <option value ="기타">기타</option>
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                    <th>파일</th>
+                    <td>
+                        <input type="file" id="record" name="record" />
+                </tr>
+                
+                </table>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type = "button" class="btn btn-primary"  id = "file_save" num="<%=req.params.id%>" >업로드 </button>  <!-- 수정 -->
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+      
+    </div>
+  </div>
+
+  </div>
+
+
+
+
+
+
+  <div id="Tokyo" class="w3-container w3-border city" style="display:none">
+  <table class="table table-bordered table-hover" style="width:80%; margin:10px;">
+  <tr>
+      <th>날짜</th>
+      <th>파일</th>
+      </tr>
+  <% cap_meet.forEach( function(cap_meet){ %>
+      <tr>
+      <td>
+        <%=cap_meet.getDate.year%>/<%=cap_meet.getDate.month%>/<%=cap_meet.getDate.day%> 
+      </td>
+      
+      <% if(cap_meet.record){%>
+      <td>
+                  <a href="/hitts/cap_uploads/<%=cap_meet.record%>" /> <%=cap_meet.record%> </a>
+      </td>
+      <% } %>
+      <% if(req.user.username == cap_meet.writer_num){ %>
+          <td>
+              <a href="/hitts/cap/index/meet/delete/<%=cap_meet.id%> " class="btn btn-danger btn-xs" style="height:auto;" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>    
+          </td>
+      <% }%>
+      </tr>
+  <%});%>
+
+  </table>
+  <% if(capstone.writer_num == req.user.username) { %>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">작성하기</button>
+  <% } %>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal2" role="dialog">
+      <div class="modal-dialog">
+      
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">작성하기</h4>
+          </div>
+          <div class="modal-body">
+          <form action="" method="post" enctype="multipart/form-data" id="upload">
+              <table class="table table-bordered">
+              
+              <tr>
+                  <th>파일</th>
+                  <td>
+                      <input type="file" id="record2" name="record2" />
+              </tr>
+              
+              </table>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type = "button" class="btn btn-primary"  id = "meet_save" num="<%=req.params.id%>" >업로드 </button>  <!-- 수정 -->
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+    
+  </div>
+</div>
+  </div>
+</div>
+</div>
+
+<script>
+
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-green", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-green";
+};
+
+function sendFile (file) {
+    var filedata = new FormData();
+    filedata.append('record', file);
+    $.ajax({
+        url: '/hitts/cap/file',
+        type: "POST",
+        data : filedata,
+        dataType : 'JSON',
+        contentType: false,
+        processData : false
+    })
+    .done(function(args){
+        if(args.message ==="success"){
+            $.ajax({
+                url: '/hitts/cap/index/file/save ',
+                type: "POST",
+                data : {'num' : $('#file_save').attr('num'), 'class' : $('#class').val(), record : $('#record')[0].files[0].name, ext : $('#record').val().split('.').pop().toLowerCase(), time : args.time },
+                dataType : 'JSON',
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("??")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        }
+        else {
+            alert("파일을 선택해주세요")
+        }
+    })
+    
+};
+
+    $(document).ready(function(args){
+        $(document).on('click','#file_save' ,function(){
+            var data = $('#record')[0].files[0];
+            sendFile(data);
+        });
+    });
+
+
+    function sendFile2 (file) {
+    var filedata = new FormData();
+    filedata.append('record', file);
+    $.ajax({
+        url: '/hitts/cap/file',
+        type: "POST",
+        data : filedata,
+        dataType : 'JSON',
+        contentType: false,
+        processData : false
+    })
+    .done(function(args){
+        if(args.message ==="success"){
+            $.ajax({
+                url: '/hitts/cap/index/meet/save ',
+                type: "POST",
+                data : {'num' : $('#meet_save').attr('num'), record : $('#record2')[0].files[0].name, ext : $('#record2').val().split('.').pop().toLowerCase(), time : args.time },
+                dataType : 'JSON',
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("??")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        }
+        else {
+            alert("파일을 선택해주세요")
+        }
+    })
+    
+};
+    $(document).ready(function(args){
+        $(document).on('click','#meet_save' ,function(){
+            var data = $('#record2')[0].files[0];
+            sendFile2(data);
+        });
+    });
+
+    $(document).on('click','#result_save',function(){
+            $.ajax({
+                url : '/hitts/cap/result/save',
+                type : 'POST',
+                data : { 'num' : $(this).attr('num'), 'result' : $('#result').val()},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("업데이트 성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("??")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+</script>
+
+</div>
+<% include ../footer.ejs %>

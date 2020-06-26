@@ -11,11 +11,24 @@ var UserSchema = new Schema({
         type : String,
         required : [true, '패스워드는 필수입니다']
     },
-    created_at : {
-        type : Date,
-        default : Date.now()
-    }
+    stu_name : String,
+    email : String,
+    sex : String,
+    point : Array,
+    cap : {
+        type : Boolean,
+        default : false
+    },
+    year : String,
+    score : Array,
+    now_lecture : Array,
+    past_lecture : Array,
+    pro : {
+        type : Boolean,
+        default : false
+    },
+
 });
 
-UserSchema.plugin( autoIncrement.plugin, { model : "user", field : "id", startAt : 1 });
-module.exports = mongoose.model('user', UserSchema);
+UserSchema.plugin( autoIncrement.plugin, { model : "users", field : "id", startAt : 1 });
+module.exports = mongoose.model('users', UserSchema);

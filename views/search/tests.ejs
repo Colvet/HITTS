@@ -1,0 +1,91 @@
+<% include ../header.ejs %>
+<link rel="stylesheet" type="text/css" href="../stylesheet/tests.css">
+
+<% include ./searchsidebar.ejs%>
+
+<div class="main">
+    <table class="table table-bordered table-hover" style="width:80%; margin:10px;">
+        <tr>
+            <th width="60%">자료명</th>
+            <th>연도</th>
+            <th>분류</th>
+            <th> 작성일</th>
+        </tr>
+        <% history.forEach( function(history){ %>
+
+        <tr>
+            <td>
+                <a href="/hitts/search/tests/detail/<%=history.id%>"><%=history.title%></a>
+            </td>
+            <td>
+                <%=history.year%>
+            </td>
+            
+            <td>
+                <%=history.term%>
+            </td>
+            <td >
+                <%=history.getDate.year%> -
+                <%=history.getDate.month%> -
+                <%=history.getDate.day%> 
+            </td>
+            <% if(history.writer == req.user.username || req.user.pro == true) { %>
+            <td>
+                <a href="/hitts/search/tests/delete/<%=history.id%> " class="btn btn-danger btn-xs" style="height:auto;" onclick="return confirm('삭제 하시겠습니까?')">삭제</a>
+                </td>
+                <%}%>
+        </tr>
+        <%});%>
+    </table>
+
+    <a href="/hitts/search/tests/write/<%=req.params.now_lecture%>" class="btn btn-default">작성하기</a>
+    <nav >
+        <ul class="pagination">
+            <li>
+                <a href="<%= paginate.href(true) %>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        <% pages.forEach(function(page){ %>
+            <li class="<%= paginate.page == page.number ? 'active' : ''%>">
+                <a href="<%= page.url %>"><%= page.number %></a>
+            </li>
+        <%})%>
+
+        <%if(paginate.hasNextPages(pageCount)){%>
+            <li>
+                <a href="<%= paginate.href() %>">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        <%}%>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery.yearSelector.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+    // 기본 생성 및 현재값 지정하기
+    $("#basic").yearSelector().val(date.getFullyear);
+    
+    // 임의의 값으로 내용 바꾸기
+    var selectors = $("#dynamic").yearSelector();
+    selectors.setData(
+    [
+        {text:"2018", value:"2018"},
+        {text:"2017", value:"2017"},
+        {text:"2016", value:"2016"},
+        {text:"2015", value:"2015"}
+    ]).val(201e8);
+});
+//]]>
+</script>
+
+<% include ../footer.ejs %>

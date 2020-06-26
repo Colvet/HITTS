@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 58px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+    color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    font-size: 17px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+    background-color: rgba(0,45,86,147);
+    color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+    <a href="/hitts/matching/index"> HOME </a>
+        <% if (side.score != '') { %>
+            <button class="dropdown-btn">
+                캡스톤 디자인 프로젝트 팀 추천  <i class="fa fa-caret-down"></i>
+            </button>   
+            <div class="dropdown-container">
+                <a href="/hitts/matching/recommend/index">수강 및 팀 현황 </a>
+                <a href="/hitts/matching/recommend/chart"> 개인 능력</a>
+                <a href="/hitts/matching/recommend/people"> 추천인</a>
+  
+            </div>
+   <%} %>
+  <% for (var i = 0; i < side.now_lecture.length ; i++) { %>
+  <button class="dropdown-btn">
+    <%=side.now_lecture[i]%>  <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="/hitts/matching/index/<%= side.now_lecture[i] %>">팀현황 </a>
+    <a href="/hitts/matching/algo/timetable/<%= side.now_lecture[i] %>"> 시간표</a>
+   
+    <a href="/hitts/matching/algo/random/<%= side.now_lecture[i] %>"> 랜덤 </a>
+    <a href="/hitts/matching/algo/gender/<%= side.now_lecture[i] %>"> 남/여 Random </a>
+    <% if(req.user.pro==true) { %>
+    <a href="/hitts/matching/algo/project/<%= side.now_lecture[i] %>"> 프로젝트 주제</a>
+    <% } %>
+    <a href="/hitts/matching/algo/project/prefer/<%= side.now_lecture[i] %>"> 주제 선호도</a>
+    <a href="/hitts/matching/algo/project/prefer_show/<%= side.now_lecture[i] %>"> 주제 선호도 선택 현황</a>
+    
+    
+  </div>
+  <% } %>
+</div>
+
+</body>
+</html>
+<script>
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+</script>

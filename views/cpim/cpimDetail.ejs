@@ -1,0 +1,41 @@
+<% include ../header.ejs %>
+    
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div style="padding-bottom: 10px">
+                자료명 : <%=cpim.title%>
+            </div>
+            
+            <div style="padding-bottom: 10px">
+                작성자 : <%=cpim.writer%>
+            </div> 
+
+            <div style="padding-bottom: 10px">
+                파일 : 
+            <% if(cpim.record){%>
+                <a href="/hitts/cpim_uploads/<%=cpim.record%>" /> <%=cpim.record%> </a>
+                
+            </div>
+            <% } %>
+
+            <div style="padding-bottom: 10px">
+                설명 <%-cpim.description%>
+            </div>
+
+            <div style="padding-bottom: 10px">
+                작성일 : <%=cpim.getDate.year%> -
+                        <%=cpim.getDate.month%> -
+                        <%=cpim.getDate.day%>
+            </div>
+
+            
+
+            
+        <a href="/hitts/cpim" class="btn btn-default">목록으로</a>
+        <a href="/hitts/cpim/edit/<%=cpim.id%>" class="btn btn-primary">수정</a>
+
+<% include ../footer.ejs %>

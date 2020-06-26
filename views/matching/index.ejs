@@ -1,0 +1,194 @@
+<% include ../header.ejs %>
+
+<% include ./sidebar.ejs%>
+
+<div class="main">
+
+<table class="table table-bordered table-hover">
+<h1> 팀 현황</h1>
+    <tr>
+        <th>과목명</th>
+        <th>팀원</th>
+        
+    </tr>
+    <% team.forEach( function(team){ %>
+    
+    <tr>
+        <td>
+            <%=team.lecture%>
+        </td>
+        
+        <td>
+        <% for (var i = 0; i < team.member.length;i++ ) { %>
+            <%=team.member[i].stu_name%> 
+        <% } %> 
+            <% if(team.prefer == null ) { %>
+            <% } else { %>
+            (프로젝트 <%=team.prefer %> 배정)
+            <% } %>
+             
+        </td>
+
+        
+    </tr>
+            
+    <%})%>
+
+</table>
+
+
+<table class="table table-bordered table-hover">
+<h1> 초대된 현황</h1>
+    <tr>
+        <th>과목명</th>
+        <th>나 초대한 사람</th>
+        <th>수락여부</th>
+    </tr>
+    <% if (my != null) { %>
+        <% my.forEach( function(my){ %>
+
+        <tr>
+            <td>
+                <%=my.lecture%>
+            </td>
+            <td>
+                <%=my.send_name%>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" id ='team_ok' 
+                    lecture='<%=my.lecture%>' 
+                    send_num='<%=my.send_num%>' send_name='<%=my.send_name%>'
+                    get_num='<%=req.user.username%>' get_name='<%=req.user.stu_name%>'
+                    onclick="return confirm('수락 하시겠습니까?')">수락
+                </button>
+                <button type="button" class="btn btn-danger" id ='team_no' 
+                    lecture='<%=my.lecture%>' 
+                    send_num='<%=my.send_num%>' send_name='<%=my.send_name%>'
+                    get_num='<%=req.user.username%>' get_name='<%=req.user.stu_name%>'
+                    onclick="return confirm('거절 하시겠습니까?')">거절
+                </button>
+                
+
+                
+            </td>
+    
+        </tr>
+
+        <%})%>
+    <% }; %>
+
+</table>
+
+<table class="table table-bordered table-hover">
+<h1> 초대한 현황</h1>
+    <tr>
+        <th>과목명</th>
+        <th>내가 초대한 사람</th>
+        <th>수락여부</th>
+        <th>다시초대!</th>
+    </tr>
+        <% invite.forEach( function(invite){ %>
+
+        <tr>
+            <td>
+                <%=invite.lecture%>
+            </td>
+            <td>
+                <%=invite.get_name%>
+            </td>
+            <td>
+            <% if(invite.okay == true){ %>
+                    생각중.....
+            <th>
+                제발!!
+            </th>
+            <% }else { %>
+            거절함......
+            <td>
+                <button type="button" class="btn btn-primary" id ='team_re_invite' lecture='<%=invite.lecture%>' 
+                send_num='<%=invite.send_num%>' send_name='<%=invite.send_name%>'
+                get_num='<%=invite.get_num%>' get_name='<%=invite.get_name%>'
+                onclick="return confirm('팀원초대??')">다시초대</button>
+            </td>
+            <% }%>
+            </td>
+    
+        </tr>
+
+    <% }); %>
+
+</table>
+
+</div>
+
+<script>
+
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#team_ok',function(){
+            $.ajax({
+                url : '/hitts/matching/index/invite/ok',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                        'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name')},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("팀 생성 완성!")
+                    location.reload();
+
+                }
+                else{
+                    alert("팀 구성 성공!!!")
+                    location.reload();
+
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+    $(document).on('click','#team_no',function(){
+            $.ajax({
+                url : '/hitts/matching/index/invite/no',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                        'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name')},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("거절!")
+                    location.reload();
+
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+    });
+    $(document).on('click','#team_re_invite',function(){
+        $.ajax({
+            url : '/hitts/matching/index/reinvite',
+            type : 'POST',
+            data : { 'lecture' : $(this).attr('lecture'), 'send_num' : $(this).attr('send_num'), 
+                    'send_name' : $(this).attr('send_name'), 'get_num' : $(this).attr('get_num'), 'get_name' : $(this).attr('get_name')},
+        })
+        .done(function(args){
+            if(args.message ==="success"){
+
+                alert("다시 초대했습니다!")
+                location.reload();
+            }
+        })
+        .fail(function(args){
+            console.log(args);
+        })
+    });
+})();
+
+</script>
+
+<% include ../footer.ejs %>

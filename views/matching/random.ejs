@@ -1,0 +1,84 @@
+<% include ../header.ejs %>
+<% include ./sidebar.ejs %>
+<div class="main">
+<% if(req.user.pro == true) { %>
+    <table class="table table-bordered">
+        <tr>
+            <th>인원 선택</th>
+                <td>
+                <select class="form-control" type ="input" id="limit">
+                    <option value="0" > 팀당 최소 인원 선택 </option>
+                    <option value="4"> 4 </option>
+                    <option value="3"> 3 </option>
+                    <option value="2"> 2 </option>
+                    
+                </select>
+                </td>
+        </tr>
+    </table>
+<button type="button" class="btn btn-primary"  id = 'random_team'  lecture = "<%=req.params.now_lecture%>" > 랜덤 </button>
+<% } %>
+<table class="table table-bordered table-hover">
+<h1> 팀 현황</h1>
+    <tr>
+        <th>팀원</th>
+        <th>팀원 수</th>
+    </tr>
+    <% team.forEach( function(team){ %>
+    
+    <tr>
+        <td>
+        <% for (var i = 0; i < team.member.length;i++ ) { %>
+            <%=team.member[i].stu_name%> 
+        <% } %> 
+        </td>
+        <td>
+        
+        <%=team.member.length%>
+        </td>
+        </tr>
+        <%})%>
+            
+
+</table>
+    
+</div>
+
+<script>
+(function(){
+    $(document).ready(function() {
+        $(document).on('click','#random_team',function(){
+            $.ajax({
+                url : '/hitts/matching/algo/random',
+                type : 'POST',
+                data : { 'lecture' : $(this).attr('lecture'), 'limit' : $('#limit').val()},
+            })
+            .done(function(args){
+                if(args.message ==="success"){
+
+                    alert("성공!")
+                    location.reload();
+
+                }
+                else {
+                    alert("팀당 인원을 선택해 주세요")
+                }
+            })
+            .fail(function(args){
+                console.log(args);
+            })
+        });
+    });
+})();
+         
+</script>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery.yearSelector.js"></script>
+
+
+
+
+<% include ../footer.ejs %>
+

@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="../stylesheet/login.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheet/login.css">
     <script
       src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -7,6 +7,12 @@
 
 </head>
 <body>
+    <center>
+    <div class="topimg">
+        <img src="../../image/main_logo.png" style="width:600px"><a style="position:relative; top-3%;"></a>
+
+    </div>
+    </center>
     <div class="owl">
         <div class="hand"></div>
         <div class="hand hand-r"></div>
@@ -15,28 +21,30 @@
           <div class="arm arm-r"></div>
         </div>
     </div>
-    
-<form role="form" action="" id="login_form" method="post">
 
+<form role="form" action="" id="login_form" method="post">
+<center>
         <div class="form">
             <div class="control">
-                <label for="username" class="fa fa-envelope"></label>   
-                <input id="username" placeholder="ID" name="username" type="text" autofocus="" required=""></input>
+                <label for="username" class="fa fa-user-circle" aria-hidden="true"></label>   
+                <input class="form-control" id="username" placeholder="ID" name="username" type="text" autofocus="" ></input>
             </div>
+            
             <div class="control">
-                <label for="password" class="fa fa-asterisk"></label>
-                <input id="password" placeholder="Password" name="password" type="password" value="" required=""></input>
+                <label for="password" class="fa fa-lock" aria-hidden="true" style="width:15px"></label>
+                <input class="form-control" id="password" placeholder="Password" name="password" type="password" value="" ></input>
             </div>
-            <div>
-                <input type="submit" class="btn btn-lg btn-success btn-block" value="로그인"></input>
+            <div style="margin-top:20px">
+                <center><input type="submit" class="btn btn-lg btn-success btn-block" value="로그인"></input></center>
             </div>
-            <div style="margin-top: 10px">
-                <a href="/accounts/join " > 
-                <i class="fa fa-id-card" aria-hidden="true"></i> 회원가입
-                    
+            <div style="margin-top: 30px">
+                <a href="/hitts/accounts/join"> 
+                <i class="jn fa fa-user-plus" aria-hidden="true" style="color:#000001; font-size:16px; "> 회원가입</i>
+
                 </a>
             </div>
         </div>
+</center>
 </form>  
 </body>
 <script type="text/javascript">    
