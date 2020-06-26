@@ -11,9 +11,9 @@
 > 김신학(Backend 담당), 이재용(Front 담당), 강민준(데이터 분석), 오창석(데이터 분석)
 
 ## 개발 환경 및 사용 프로그램
-+ 프레임워크 : Node.js
++ 프레임워크 : Node.js, Express
 + Front-end : Ejs
-+ 사용 언어 : Python, javascript, Express
++ 사용 언어 : Python, javascript
 + 데이터베이스 : Mongodb
 
 ## 프로젝트 주요 기능
