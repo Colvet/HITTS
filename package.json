@@ -23,7 +23,7 @@
     "flash": "^1.1.0",
     "java": "^0.9.1",
     "jquery-file-upload-middleware": "^0.1.8",
-    "mathjs": "^4.4.2",
+    "mathjs": "^7.5.1",
     "mongodb": "^3.5.9",
     "mongoose": "^4.13.20",
     "mongoose-auto-increment": "^5.0.1",
